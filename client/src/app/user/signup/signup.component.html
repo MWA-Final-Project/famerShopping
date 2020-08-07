@@ -1,0 +1,43 @@
+<mat-chip-list *ngIf="error">
+    <mat-chip color="primary">{{ error }}</mat-chip>
+</mat-chip-list>
+<div *ngIf="isLoading" style="text-align: center">
+    <app-loading-spinner></app-loading-spinner>
+</div>
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
+    <div class="form-container">
+      <mat-card>
+        <h3>Create account</h3>
+        <mat-form-field class="controls">
+          <input
+            matInput
+            type="text"
+            name="email"
+            placeholder="Email"
+            [formControl]="signupForm.get('email')"
+        /></mat-form-field>
+  
+        <div *ngIf="signupForm.get('email').hasError('invalid')">Error</div>
+        <mat-form-field class="controls">
+          <input
+            matInput
+            type="password"
+            name="password"
+            placeholder="Password"
+            [formControl]="signupForm.get('password')"
+          />
+        </mat-form-field>
+  
+        <div *ngIf="signupForm.get('password').hasError('invalid')">Error</div>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="!signupForm.valid"
+        >
+          Sign Up
+        </button>
+      </mat-card>
+    </div>
+  </form>
+  
