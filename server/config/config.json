@@ -1,0 +1,11 @@
+ {
+    "app": {
+        "port": 3000
+    },
+    "db": {
+        "host": "localhost",
+        "port": 27017,
+        "name": "farmerShopping"
+    },
+    "secretKey" : "my_secret_private_key"
+}
