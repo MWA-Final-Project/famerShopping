@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { MaterialModule } from "../material/material.module";
 import { HttpClientModule } from "@angular/common/http";
 import { LoadingSpinnerComponent } from "./loading-spinner/loading-spinner.component";
+import { HomeComponent} from "./../home/home.component"
 
 @NgModule({
   declarations: [SignupComponent, SigninComponent, LoadingSpinnerComponent],
