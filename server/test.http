@@ -30,3 +30,17 @@ POST http://localhost:3000/farmers/signin/ HTTP/1.1
 Content-Type: application/json
 
 {"email":"sam2@test.com", "password":"123"}
+
+####
+
+POST http://localhost:3000/account/signup HTTP/1.1
+Content-Type: application/json
+
+{"email":"sam@test.com", "password":"123"}
+
+####
+
+POST http://localhost:3000/account/signin/ HTTP/1.1
+Content-Type: application/json
+
+{"email":"sam@test.com", "password":"123"}
