@@ -1,6 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const config = require('./../config/config.json');
 
 const checkAuth = require("../midleware/check-auth");
 
@@ -35,7 +36,7 @@ router.post("/signin", async (req, res) => {
 
       token = jwt.sign(
         { email: account.email, id: account._id },
-        "my_secret_private_key",
+        config.secretKey,
         { expiresIn: "1h" }
       );
 
