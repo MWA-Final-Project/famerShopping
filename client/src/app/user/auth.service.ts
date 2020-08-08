@@ -1,6 +1,7 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
+import { Router } from '@angular/router';
 
 export interface AuthResponseData {
   email: string;
@@ -16,7 +17,7 @@ export class AuthService {
 
   baseUrl: string = "http://localhost:3000/account";
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   getToken() {
     return this.token;
@@ -28,6 +29,8 @@ export class AuthService {
         const token = response.token;
         this.token = token;
         this.responseMessage = response;
+
+        this.router.navigate(["/home"])
       });
 
     return this.responseMessage;

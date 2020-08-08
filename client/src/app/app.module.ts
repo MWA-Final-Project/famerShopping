@@ -10,17 +10,20 @@ import { MaterialModule } from "./material/material.module";
 //import { LoadingSpinnerComponent } from "./user/loading-spinner/loading-spinner.component.js";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AuthInterceptor } from "./user/auth-interceptor";
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, HomeComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     UserModule,
     MaterialModule,
     RouterModule.forRoot([
+      {path:"home", component: HomeComponent},
       { path: "user", loadChildren: "./user/user.module" },
       { path: "", redirectTo: "user", pathMatch: "full" }
+      
     ])
   ],
   providers: [
