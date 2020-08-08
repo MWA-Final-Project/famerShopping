@@ -82,3 +82,69 @@ module.exports.signup = async (req, res) => {
       })
       .catch(err => res.json({ message: err }));
   }
+
+module.exports.getAll = async (req, res) => {
+
+  await Farmer.find({ })
+    .then(data => res.json(data))
+    .catch(err => res.json(err))
+
+  // try {
+  //   await Farmer.find({ }).then(data => res.json(data))
+  // } catch (error) {
+    
+  // }    
+}
+
+// module.exports.getbyId = async (req, res) => {
+  
+// }
+
+module.exports.getByEmail = async (req, res) => {
+
+  await Farmer.findOne({email: req.params.email })
+    .then(data => res.json(data))
+    .catch(err => res.json(err))
+}
+
+module.exports.getProducts = async (req, res) => {
+
+  await Farmer.findOne({email: req.params.email }, {_id: 0, email: 1, products: 1})
+    .then(data => res.json(data))
+    .catch(err => res.json(err))
+}
+
+module.exports.addProducts = async (req, res) => {
+
+  await Farmer.findOne({email: req.params.email })
+    .then(farmer => {
+      farmer.products.push(req.body)
+      
+      farmer.save().then(_ => {
+        res.json({message: 'Product successfully added.'})  // farmer
+      })
+      .catch(err => res.json(err))
+    })
+    .catch(err => res.json(err))
+}
+
+module.exports.getOrders = async (req, res) => {
+
+  await Farmer.findOne({email: req.params.email }, {_id: 0, email: 1, orders: 1})
+    .then(data => res.json(data))
+    .catch(err => res.json(err))
+}
+
+module.exports.addOrders = async (req, res) => {
+
+  await Farmer.findOne({email: req.params.email })
+    .then(farmer => {
+      farmer.orders.push(req.body)
+      
+      farmer.save().then(_ => {
+        res.json({message: 'Order successfully added.'})  // farmer
+      })
+      .catch(err => res.json(err))
+    })
+    .catch(err => res.json(err))
+}

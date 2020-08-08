@@ -14,21 +14,26 @@ const Account = mongoose.model("farmer", {
   password: {
     type: String,
     required: true
-  },fullName: {
+  },
+  fullName: {
     firstName: {type:String, required: true},
     lastName: {type:String, required: true}
-  },address:{
+  },
+  address:{
     street: {type:String, required: true},
     city: {type:String, required: true},
     state: {type:String, required: true},
     zipcode: {type:String, required: true}
-  },phone:{
+  },
+  phone:{
     type:String, 
     required: true
-  },rate:{
+  },
+  rate:{
     type:Number, 
     required: true
-  },products:[{
+  },
+  products:[{
     name: {type:String, required: true},
     description: {type:String, required: true},
     price: {type:Number, required: true},
@@ -36,7 +41,8 @@ const Account = mongoose.model("farmer", {
     catagory: {type:String, required: true},
     quantity: {type:Number, required: true},
     pushing_date: {type:String, required: true},
-  }],orders:[{
+  }],
+  orders:[{
     oderdingDate: {type:String, required: true},
     deliveryDate: {type:String, required: true},
     farmerId: {type:String, required: true},
