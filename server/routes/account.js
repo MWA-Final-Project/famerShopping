@@ -59,14 +59,14 @@ router.post("/signup", async (req, res) => {
         .save()
         .then(_ => {
           console.log(newAccount);
-          res.json({ message: "Account successfully created." });
+          res.json(true );
         })
         .catch(err => {
           console.log({ message: err });
           res.json({ message: err });
         });
     })
-    .catch(err => res.json({ message: err }));
+    .catch(err => res.json(err));
 });
 
 router.get("/api/protected", checkAuth, (req, res, next) => {

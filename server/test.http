@@ -13,6 +13,7 @@ POST http://localhost:3000/custmers/signin/ HTTP/1.1
 Content-Type: application/json
 
 {"email":"sam4@test.com", "password":"123"}
+
 ####
 
 POST http://localhost:3000/farmers/signup HTTP/1.1
@@ -26,7 +27,101 @@ Content-Type: application/json
 
 ####
 
+POST http://localhost:3000/farmers/signup HTTP/1.1
+Content-Type: application/json
+
+{
+    "email":"ema@test.com",
+    "password":"123",
+    "fullName":{
+        "fisrtName": "Ema", 
+        "lastName":"Kihshen"
+    }, 
+    "address":{ 
+        "street": "1000N 4th St", 
+        "city" : "Fairfield", 
+        "state": "IA", 
+        "zipcode": "56789"
+    },
+    "phone":"1234567", 
+    "rate":4
+ }
+
+####
+
 POST http://localhost:3000/farmers/signin/ HTTP/1.1
 Content-Type: application/json
 
+{"email":"sam6@test.com", "password":"123"}
+
+
+####
+
+GET http://localhost:3000/farmers/ HTTP/1.1
+
+
+####
+
+GET http://localhost:3000/farmers/sam6@test.com HTTP/1.1
+
+####
+
+GET http://localhost:3000/farmers/ema@test.com HTTP/1.1
+
+
+####
+
+POST http://localhost:3000/farmers/ema@test.com/products HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Apple",
+    "description": "Californian apple",
+    "price": 4.50,
+    "pic": "picture url",
+    "catagory": "Fruit",
+    "quantity": 25,
+    "pushing_date": "08-08-2020"
+  }
+
+####
+
+GET http://localhost:3000/farmers/ema@test.com/products HTTP/1.1
+
+
+####
+
+POST http://localhost:3000/farmers/ema@test.com/orders HTTP/1.1
+Content-Type: application/json
+
+{
+    "oderdingDate": "08-08-2020",
+    "deliveryDate": "08-12-2020",
+    "farmerId": "5f2f0e5a3508017380fea569",
+    "productId": "5f2f14e137134d3e980faa34",
+    "status": "pending",
+    "price": 4.50,
+    "quantity": 25,
+    "totalPrice": 4.50,
+    "paidStatus": "pending"
+  }
+
+####
+
+GET http://localhost:3000/farmers/ema@test.com/orders HTTP/1.1
+=======
 {"email":"sam2@test.com", "password":"123"}
+
+####
+
+POST http://localhost:3000/account/signup HTTP/1.1
+Content-Type: application/json
+
+{"email":"sam@test.com", "password":"123"}
+
+####
+
+POST http://localhost:3000/account/signin/ HTTP/1.1
+Content-Type: application/json
+
+{"email":"sam@test.com", "password":"123"}

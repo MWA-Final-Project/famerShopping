@@ -11,9 +11,12 @@ import { MaterialModule } from "./material/material.module";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AuthInterceptor } from "./user/auth-interceptor";
 import { HomeComponent } from './home/home.component';
+import { Home1Component } from './home1/home1.component';
+import { Home2Component } from './home2/home2.component';
+
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
+  declarations: [AppComponent, HomeComponent, Home1Component, Home2Component],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -21,8 +24,12 @@ import { HomeComponent } from './home/home.component';
     MaterialModule,
     RouterModule.forRoot([
       {path:"home", component: HomeComponent},
+      {path:"home1", component: Home1Component},
+      {path:"home2", component: Home2Component},
+      { path: "", redirectTo: "home", pathMatch: "full" },
+      { path:"home", component: HomeComponent},
       { path: "user", loadChildren: "./user/user.module" },
-      { path: "", redirectTo: "user", pathMatch: "full" }
+      { path: "**", redirectTo: "home", pathMatch: "full" }
       
     ])
   ],
