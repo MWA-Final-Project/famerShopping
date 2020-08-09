@@ -53,7 +53,6 @@ module.exports.signup = async (req, res) => {
                       state: req.body.address.state,
                       zipcode: req.body.address.zipcode
                     }
-    const rate = req.body.rate;
     console.log(address)
   
     await bcrypt
@@ -64,7 +63,7 @@ module.exports.signup = async (req, res) => {
                               fullName: fullName,
                               address:address,
                               phone : phone,
-                              rate:rate,
+                              rate:0,
                               products:[],
                               odrders:[]};
         const farmer = new Farmer(newFarmer);

@@ -41,6 +41,7 @@ module.exports.signin = async (req, res) => {
 }
 
 module.exports.signup = async (req, res) => {
+  console.log(req.body)
     const email = req.body.email;
     const password = req.body.password;
     const fullName = {firstName: req.body.fullName.fisrtName, 
@@ -52,7 +53,7 @@ module.exports.signup = async (req, res) => {
                       state: req.body.address.state,
                       zipcode: req.body.address.zipcode
                     }
-    console.log(address)
+    
   
     await bcrypt
       .hash(password, BCRYPT_SALT_ROUNDS)
@@ -62,7 +63,7 @@ module.exports.signup = async (req, res) => {
                               fullName: fullName,
                               phone : phone,
                               address:address,
-                            odrders:[] };
+                              odrders:[] };
         const custmer = new Custmer(newCustmer);
   
         custmer
