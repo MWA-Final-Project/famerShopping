@@ -16,12 +16,16 @@ const farmersRouter = require("./routes/farmers");
 var app = express();
 
 require("./db/db");
+// const accountRouter = require("./routes/account");
+// const farmersRouter = require("./routes/farmersRouter");
 
 app.use(cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
+app.disable('x-powered-by');
 
 // create a write stream (in append mode)
 var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
