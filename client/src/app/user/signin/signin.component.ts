@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, Validators, FormBuilder } from "@angular/forms";
 import { AuthService } from "../auth.service";
+import { RadioChangeService } from './../../services/radio-change.service'
 
 @Component({
   selector: "app-signin",
@@ -12,10 +13,12 @@ export class SigninComponent implements OnInit {
   isLoading: boolean = false;
   error: string = null;
   private token;
+  baseUrl: string = "http://localhost:3000/farmers";
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private radioService: RadioChangeService
   ) {
     this.signinForm = formBuilder.group({
       email: [
@@ -35,13 +38,17 @@ export class SigninComponent implements OnInit {
   ngOnInit() {}
 
   onSubmit() {
+    if(this.radioService.getRadio()==2){
+      console.log(this.radioService.getRadio());
+      this.baseUrl = "http://localhost:3000/custmers"
+    }
     const account = {
       email: this.signinForm.value.email,
       password: this.signinForm.value.password
     };
     this.isLoading = true;
 
-    const response = this.authService.signIn(account);
+    const response = this.authService.signIn(account, this.baseUrl);
 
     if (response) {
       this.isLoading = false;

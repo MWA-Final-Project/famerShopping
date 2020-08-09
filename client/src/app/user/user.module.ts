@@ -8,10 +8,10 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { MaterialModule } from "../material/material.module";
 import { HttpClientModule } from "@angular/common/http";
 import { LoadingSpinnerComponent } from "./loading-spinner/loading-spinner.component";
-import { HomeComponent} from "./../home/home.component"
+import { LandingPageComponent } from './landing-page/landing-page.component'
 
 @NgModule({
-  declarations: [SignupComponent, SigninComponent, LoadingSpinnerComponent],
+  declarations: [SignupComponent, SigninComponent, LoadingSpinnerComponent, LandingPageComponent],
   imports: [
     CommonModule,
     BrowserModule,
@@ -19,12 +19,13 @@ import { HomeComponent} from "./../home/home.component"
     HttpClientModule,
     ReactiveFormsModule,
     RouterModule.forChild([
-      {
-        path: "signup",
-        component: SignupComponent
-      },
-      { path: "signin", component: SigninComponent },
-      { path: "", redirectTo: "signup", pathMatch: "full" }
+      { path: "",component: LandingPageComponent,
+          children:[
+            { path: "signup",component: SignupComponent},
+            { path: "signin", component: SigninComponent },
+            { path: "", redirectTo: "signin", pathMatch: "full" }
+          ]          
+      }
     ])
   ]
 })

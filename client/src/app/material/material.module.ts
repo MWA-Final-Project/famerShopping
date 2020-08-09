@@ -7,6 +7,8 @@ import { MatCardModule } from "@angular/material/card";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatButtonModule } from "@angular/material/button";
 import { MatChipsModule } from "@angular/material/chips";
+import {MatRadioModule} from '@angular/material/radio';
+
 
 @NgModule({
   declarations: [],
@@ -18,7 +20,8 @@ import { MatChipsModule } from "@angular/material/chips";
     MatMenuModule,
     MatFormFieldModule,
     MatCardModule,
-    MatChipsModule
+    MatChipsModule,
+    MatRadioModule
   ],
   exports: [
     MatToolbarModule,
@@ -27,7 +30,8 @@ import { MatChipsModule } from "@angular/material/chips";
     MatMenuModule,
     MatFormFieldModule,
     MatCardModule,
-    MatChipsModule
+    MatChipsModule,
+    MatRadioModule
   ]
 })
 export class MaterialModule {}

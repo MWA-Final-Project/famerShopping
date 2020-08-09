@@ -20,9 +20,10 @@ import { HomeComponent } from './home/home.component';
     UserModule,
     MaterialModule,
     RouterModule.forRoot([
-      {path:"home", component: HomeComponent},
+      { path: "", redirectTo: "home", pathMatch: "full" },
+      { path:"home", component: HomeComponent},
       { path: "user", loadChildren: "./user/user.module" },
-      { path: "", redirectTo: "user", pathMatch: "full" }
+      { path: "**", redirectTo: "home", pathMatch: "full" }
       
     ])
   ],
