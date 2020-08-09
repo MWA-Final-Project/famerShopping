@@ -63,6 +63,7 @@ export class SignupComponent implements OnInit {
 
     this.isLoading = true;
     const response = this.authService.signUp(account, this.baseUrl);
+   
 
     if (response) {
       this.isLoading = false;
