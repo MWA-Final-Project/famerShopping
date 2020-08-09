@@ -1,3 +1,38 @@
+POST http://localhost:3000/custmers/signup HTTP/1.1
+Content-Type: application/json
+
+{"email":"sam4@test.com",
+ "password":"123",
+ "fullName":{"fisrtName": "sam", "lastName":"mousa"}, 
+ "address":{ "street": "1000N 4th st", "city" : "fairfield", "state": "Iowa", "zipcode": "12345"},
+ "phone":"1234567"}
+
+####
+
+POST http://localhost:3000/custmers/signin/ HTTP/1.1
+Content-Type: application/json
+
+{"email":"sam4@test.com", "password":"123"}
+####
+
+POST http://localhost:3000/farmers/signup HTTP/1.1
+Content-Type: application/json
+
+{"email":"sam6@test.com",
+ "password":"123",
+ "fullName":{"fisrtName": "sam", "lastName":"mousa"}, 
+ "address":{ "street": "1000N 4th st", "city" : "fairfield", "state": "Iowa", "zipcode": "12345"},
+ "phone":"1234567", "rate":4}
+
+####
+
+POST http://localhost:3000/farmers/signin/ HTTP/1.1
+Content-Type: application/json
+
+{"email":"sam2@test.com", "password":"123"}
+
+####
+
 POST http://localhost:3000/account/signup HTTP/1.1
 Content-Type: application/json
 

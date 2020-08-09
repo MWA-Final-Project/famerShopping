@@ -15,16 +15,16 @@ export class AuthService {
   private token: string;
   private responseMessage;
 
-  baseUrl: string = "http://localhost:3000/account";
+  loginbaseUrl: string = "http://localhost:3000/custmers";
 
   constructor(private http: HttpClient, private router: Router) {}
 
   getToken() {
     return this.token;
   }
-  signIn(account) {
+  signIn(account,baseUrl) {
     this.http
-      .post<{ token: string }>(this.baseUrl + "/signin", account)
+      .post<{ token: string }>(baseUrl + "/signin", account)
       .subscribe(response => {
         const token = response.token;
         this.token = token;
@@ -35,8 +35,8 @@ export class AuthService {
 
     return this.responseMessage;
   }
-  signUp(account) {
-    this.http.post(this.baseUrl + "/signup", account).subscribe(response => {
+  signUp(account, baseUrl) {
+    this.http.post(baseUrl + "/signup", account).subscribe(response => {
       console.log(response);
       this.responseMessage = response;
     });

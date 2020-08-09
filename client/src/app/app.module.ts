@@ -26,8 +26,10 @@ import { Home2Component } from './home2/home2.component';
       {path:"home", component: HomeComponent},
       {path:"home1", component: Home1Component},
       {path:"home2", component: Home2Component},
+      { path: "", redirectTo: "home", pathMatch: "full" },
+      { path:"home", component: HomeComponent},
       { path: "user", loadChildren: "./user/user.module" },
-      { path: "", redirectTo: "user", pathMatch: "full" }
+      { path: "**", redirectTo: "home", pathMatch: "full" }
       
     ])
   ],
