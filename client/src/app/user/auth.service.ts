@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Router } from '@angular/router';
@@ -20,14 +19,19 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
   getToken() {
-    return this.token;
+    return localStorage.getItem('token');
+  }
+    clearStorage(){
+    localStorage.clear();
   }
   signIn(account,baseUrl) {
     this.http
       .post<{ token: string }>(baseUrl + "/signin", account)
       .subscribe(response => {
         const token = response.token;
-        this.token = token;
+        localStorage.setItem('token',token)
+        
+        //this.token = token;
         this.responseMessage = response;
 
         this.router.navigate(["/home"])
@@ -39,6 +43,7 @@ export class AuthService {
     this.http.post(baseUrl + "/signup", account).subscribe(response => {
       console.log(response);
       this.responseMessage = response;
+      this.router.navigate(["/signin"])
     });
     return this.responseMessage;
   }

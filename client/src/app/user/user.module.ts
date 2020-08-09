@@ -9,6 +9,7 @@ import { MaterialModule } from "../material/material.module";
 import { HttpClientModule } from "@angular/common/http";
 import { LoadingSpinnerComponent } from "./loading-spinner/loading-spinner.component";
 import { LandingPageComponent } from './landing-page/landing-page.component'
+import { VoidSignInGuard } from './../guards/void-sign-in.guard';
 
 @NgModule({
   declarations: [SignupComponent, SigninComponent, LoadingSpinnerComponent, LandingPageComponent],
@@ -21,8 +22,8 @@ import { LandingPageComponent } from './landing-page/landing-page.component'
     RouterModule.forChild([
       { path: "",component: LandingPageComponent,
           children:[
-            { path: "signup",component: SignupComponent},
-            { path: "signin", component: SigninComponent },
+            { path: "signup",component: SignupComponent , canActivate:[VoidSignInGuard]},
+            { path: "signin", component: SigninComponent, canActivate:[VoidSignInGuard] },
             { path: "", redirectTo: "signin", pathMatch: "full" }
           ]          
       }
