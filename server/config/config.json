@@ -4,7 +4,7 @@
     },
     "db": {
         "host": "localhost",
-        "port": 27017,
+        "port": 2717,
         "name": "farmerShopping"
     },
     "secretKey" : "my_secret_private_key"
