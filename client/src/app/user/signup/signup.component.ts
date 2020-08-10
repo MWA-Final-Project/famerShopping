@@ -3,8 +3,6 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AuthService } from "../auth.service";
 import { RadioChangeService } from './../../services/radio-change.service'
 
-
-
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',

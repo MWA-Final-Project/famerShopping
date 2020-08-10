@@ -8,6 +8,7 @@ import { Subject } from 'rxjs';
 export class FarmersService {
 
   constructor(private http: HttpClient){ }
+
   subject = new Subject<any>();
   private allProducts;
   private allOrders;
@@ -44,6 +45,18 @@ export class FarmersService {
     const link ="http://localhost:3000/farmers/"+localStorage.getItem('id')+"/products/"+id;
     this.http.delete(link,id)
       .subscribe(res => {
+        this.getProducts();
+        return res;
+      }, err => {
+        console.log(err)
+      });
+  }
+  addProduct(reqBody){
+    const link ="http://localhost:3000/farmers/"+localStorage.getItem('id')+"/products";
+    this.http.post<{obj:object}>(link, reqBody)
+      .subscribe(res => {
+        console.log("product created"+ res.obj)
+        this.getProducts();
         return res;
       }, err => {
         console.log(err)

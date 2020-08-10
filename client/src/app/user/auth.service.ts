@@ -13,6 +13,7 @@ export interface AuthResponseData {
 export class AuthService {
   private token: string;
   private responseMessage;
+  errorMessage: string = null;
 
   
 
@@ -21,9 +22,10 @@ export class AuthService {
   getToken() {
     return localStorage.getItem('token');
   }
-    clearStorage(){
+  clearStorage(){
     localStorage.clear();
   }
+
   signIn(account,baseUrl) {
     this.http
       .post<{ token: string, 
@@ -40,18 +42,19 @@ export class AuthService {
         localStorage.setItem('firstName',response.firstName);
         localStorage.setItem('lastName',response.lastName);
         localStorage.setItem('email',response.email);
+        localStorage.setItem('role',response.role);
         
         
         this.responseMessage = response;
         if(response.role == "farmer"){
-          
-            this.router.navigate(["/home/farmer"])
+          this.router.navigate(["/home/farmer"])
         }else{
-          console.log("I'm ay 7aga")
           this.router.navigate(["/home/custmer"])
         }
       }, err => {
+        this.errorMessage = err.error.message
         console.log(err.error.message)
+        return err.error.message
       });
 
     return this.responseMessage;
@@ -61,7 +64,13 @@ export class AuthService {
       console.log(response);
       this.responseMessage = response;
       this.router.navigate(["/signin"])
+    }, err => {
+      this.errorMessage = err.error.message
+      console.log(err.error.message)
     });
     return this.responseMessage;
+  }
+  getErrorMessage() {
+    return this.errorMessage;
   }
 }
