@@ -84,17 +84,10 @@ module.exports.signup = async(req, res) => {
 
 module.exports.getAllFarmers = async(req, res) => {
 
-<<<<<<< Updated upstream
-    await Farmer.find({}, { password: 0 })
-        .sort({ rate: -1 })
-        .then(data => res.json(data))
-        .catch(err => res.json(err))
-=======
   await Farmer.find({ }, { password: 0})
               .sort({rate: -1})
               .then(data => res.status(200).json(data))
               .catch(err => res.status(400).json(err))
->>>>>>> Stashed changes
 }
 
 module.exports.getFarmerById = async(req, res) => {
@@ -137,23 +130,6 @@ module.exports.getAllProducts = async(req, res) => {
         .catch(err => res.json(err))
 }
 
-<<<<<<< Updated upstream
-module.exports.addProduct = async(req, res) => {
-    const farmerId = req.params.farmerId;
-    const product = req.body;
-
-    await Farmer.findOne({ _id: farmerId })
-        .then(farmer => {
-            farmer.products.push(product)
-
-            farmer.save()
-                .then(_ => {
-                    res.json({ message: 'Product successfully added.' })
-                })
-                .catch(err => res.json(err))
-        })
-        .catch(err => res.json(err))
-=======
 module.exports.addProduct = async (req, res) => {
   const farmerId = req.params.farmerId;
   const product = req.body;
@@ -172,7 +148,6 @@ module.exports.addProduct = async (req, res) => {
                         res.status(400).json(err)})
               })
               .catch(err => res.json(err))
->>>>>>> Stashed changes
 }
 
 module.exports.removeProduct = async(req, res) => {
