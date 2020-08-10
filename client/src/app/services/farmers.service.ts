@@ -12,7 +12,7 @@ export class FarmersService {
   private allProducts;
   private allOrders;
   getProducts() {
-    const link ="http://localhost:3000/farmers/"+localStorage.getItem('email')+"/products"
+    const link ="http://localhost:3000/farmers/"+localStorage.getItem('id')+"/products"
     this.http.get<{products:object}>(link)
       .subscribe(res => {
         this.allProducts = res.products;
@@ -23,7 +23,7 @@ export class FarmersService {
       return this.allProducts;
   }
   increaseProductQuantity(id) {
-    const link ="http://localhost:3000/farmers/"+localStorage.getItem('email')+"/products/inc/"+id;
+    const link ="http://localhost:3000/farmers/"+localStorage.getItem('id')+"/products/inc/"+id;
     this.http.patch(link,id)
       .subscribe(res => {
         return res;
@@ -32,7 +32,7 @@ export class FarmersService {
       });
   }
   decreseProductQuantity(id) {
-    const link ="http://localhost:3000/farmers/"+localStorage.getItem('email')+"/products/dec/"+id;
+    const link ="http://localhost:3000/farmers/"+localStorage.getItem('id')+"/products/dec/"+id;
     this.http.patch(link,id)
       .subscribe(res => {
         return res;
@@ -41,7 +41,7 @@ export class FarmersService {
       });
   }
   removeProduct(id) {
-    const link ="http://localhost:3000/farmers/"+localStorage.getItem('email')+"/products/"+id;
+    const link ="http://localhost:3000/farmers/"+localStorage.getItem('id')+"/products/"+id;
     this.http.delete(link,id)
       .subscribe(res => {
         return res;
@@ -51,7 +51,7 @@ export class FarmersService {
   }
 
   getOrders() {
-    const link ="http://localhost:3000/farmers/"+localStorage.getItem('email')+"/orders"
+    const link ="http://localhost:3000/farmers/"+localStorage.getItem('id')+"/orders"
     this.http.get<{orders:object}>(link)
       .subscribe(res => {
         this.allOrders = res.orders;
@@ -62,7 +62,7 @@ export class FarmersService {
       return this.allOrders;
   }
   removeOrder(id) {
-    const link ="http://localhost:3000/farmers/"+localStorage.getItem('email')+"/order/"+id;
+    const link ="http://localhost:3000/farmers/"+localStorage.getItem('id')+"/order/"+id;
     this.http.delete(link,id)
       .subscribe(res => {
         return res;

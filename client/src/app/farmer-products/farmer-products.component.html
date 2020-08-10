@@ -1,3 +1,63 @@
+<mat-card>
+  <h3>add new product</h3>
+  <mat-form-field class="controls">
+    <input
+      matInput
+      type="text"
+      name="name"
+      placeholder="name"
+      
+  /></mat-form-field>
+
+
+  <mat-form-field class="controls">
+    <input
+      matInput
+      type="text"
+      name="description"
+      placeholder="description"
+      
+    />
+  </mat-form-field>
+  <mat-form-field class="controls">
+    <input
+      matInput
+      type="text"
+      name="price"
+      placeholder="price"
+      
+    />
+  </mat-form-field>
+  <mat-form-field class="controls">
+    <input
+      matInput
+      type="text"
+      name="catogry"
+      placeholder="catogry"
+      
+    />
+  </mat-form-field>
+  <mat-form-field class="controls">
+    <input
+      matInput
+      type="text"
+      name="quantity"
+      placeholder="quantity"
+      
+    />
+  </mat-form-field>
+    <input type="file" name="avatar" #avatarFile />
+ 
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+  
+  >
+    create
+  </button>
+</mat-card>
+
 <div class="album py-5 bg-light" >
     <div class="container" *ngFor="let product of products; let i = index;">
       <div class="row">
