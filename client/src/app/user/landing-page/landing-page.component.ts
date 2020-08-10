@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RadioChangeService } from './../../services/radio-change.service'
 import { MatRadioChange } from '@angular/material/radio';
-import { from } from 'rxjs';
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',
@@ -13,7 +12,9 @@ export class LandingPageComponent implements OnInit {
     
    }
    radioChange(event: MatRadioChange) {
-    if(event.value==2){
+    if(event.value==1){
+      this.radioService.setRadio(1);
+    }else{
       this.radioService.setRadio(2);
     }
     

@@ -1,0 +1,43 @@
+<header>
+    <div class="collapse bg-success" id="navbarHeader">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-8 col-md-7 py-4">
+            <h4 class="text-white">About Farmers Market</h4>
+            <p class="text-muted">we provide you with something ........</p>
+          </div>
+          <div class="col-sm-4 offset-md-1 py-4">
+            <h4 class="text-white">Contact</h4>
+            <ul class="list-unstyled">
+              <li><a href="#" class="text-white">Follow on Twitter</a></li>
+              <li><a href="#" class="text-white">Like on Facebook</a></li>
+              <li><a href="#" class="text-white">Contact us</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="navbar navbar-dark bg-success box-shadow">
+      <div class="container d-flex justify-content-between">
+        <a href="#" class="navbar-brand d-flex align-items-center">
+         
+          <p>put logo here </p>
+          <p>welcome {{user}}</p>
+        </a>
+       
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+         
+          <span class="navbar-toggler-icon"> </span>
+        </button>
+        <ul class="nav justify-content-end">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="#">profile</a>
+          </li>
+          <button mat-raised-button (click)="logout()" color="primary" type="button" >Logout</button>
+         
+        </ul>
+      </div>
+      
+    </div>
+    
+  </header>

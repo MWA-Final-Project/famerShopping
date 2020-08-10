@@ -5,7 +5,7 @@ import { MatRadioChange } from '@angular/material/radio';
   providedIn: 'root'
 })
 export class RadioChangeService {
-  radio:Number=1;
+  radio:Number = 1;
   constructor() { }
 
   setRadio(num) {

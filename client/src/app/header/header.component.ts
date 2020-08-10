@@ -4,24 +4,24 @@ import { Router } from '@angular/router';
 import { RadioChangeService } from '../services/radio-change.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-
-  styles: [],
-  
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css']
 })
-export class HomeComponent implements OnInit {
-
+export class HeaderComponent implements OnInit {
+  user;
   constructor(private authServices:AuthService, private router:Router, private radioService: RadioChangeService){} 
 
+
+
   ngOnInit(): void {
+    this.user = `${localStorage.getItem('firstName')} ${localStorage.getItem('lastName')}`;
   }
 
   logout(){
-   this.authServices.clearStorage();
-    this.router.navigate(["/signin"]);
-    this.radioService.setRadio(1);
-    
-  }
-
+    this.authServices.clearStorage();
+     this.router.navigate(["/signin"]);
+     this.radioService.setRadio(1);
+     
+   }
 }
