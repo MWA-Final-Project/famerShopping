@@ -125,26 +125,26 @@ module.exports.rateFarmer = async(req, res) => {
 module.exports.getAllProducts = async(req, res) => {
     const farmerId = req.params.farmerId;
 
-  await Farmer.findOne({ _id: farmerId }, {_id: 0, products: 1})
-              .then(data => res.json(data))
-              .catch(err => res.json(err))
+    await Farmer.findOne({ _id: farmerId }, { _id: 0, products: 1 })
+        .then(data => res.json(data))
+        .catch(err => res.json(err))
 }
 
-module.exports.addProduct = async (req, res) => {
-  const farmerId = req.params.farmerId;
-  const product = req.body;
+module.exports.addProduct = async(req, res) => {
+    const farmerId = req.params.farmerId;
+    const product = req.body;
 
-  await Farmer.findOne({ _id: farmerId })
-              .then(farmer => {
-                farmer.products.push(product)
-                
-                farmer.save()
-                      .then(_ => {
-                        res.json({message: 'Product successfully added.'})
-                      })
-                      .catch(err => res.json(err))
-              })
-              .catch(err => res.json(err))
+    await Farmer.findOne({ _id: farmerId })
+        .then(farmer => {
+            farmer.products.push(product)
+
+            farmer.save()
+                .then(_ => {
+                    res.json({ message: 'Product successfully added.' })
+                })
+                .catch(err => res.json(err))
+        })
+        .catch(err => res.json(err))
 }
 
 module.exports.removeProduct = async(req, res) => {
@@ -156,27 +156,27 @@ module.exports.removeProduct = async(req, res) => {
         .catch(err => res.json(err))
 }
 
-module.exports.incQuantity = async (req, res) => {
-  const farmerId = req.params.farmerId;
-  const productId = req.params.productId;
+module.exports.incQuantity = async(req, res) => {
+    const farmerId = req.params.farmerId;
+    const productId = req.params.productId;
 
-  await Farmer.updateOne({ _id: farmerId, "products._id": productId}, { $inc: { "products.$.quantity": 1}})
-              .then(_ => res.json({message: "Quantity updated successfully."}))
-              .catch(err => res.json(err))
+    await Farmer.updateOne({ _id: farmerId, "products._id": productId }, { $inc: { "products.$.quantity": 1 } })
+        .then(_ => res.json({ message: "Quantity updated successfully." }))
+        .catch(err => res.json(err))
 }
 
-module.exports.decQuantity = async (req, res) => {
-  const farmerId = req.params.farmerId;
-  const productId = req.params.productId;
+module.exports.decQuantity = async(req, res) => {
+    const farmerId = req.params.farmerId;
+    const productId = req.params.productId;
 
-  await Farmer.updateOne({_id: farmerId, "products._id": productId}, {$inc: {"products.$.quantity": -1}})
-              .then(_ => res.json({message: "Quantity updated successfully."}))
-              .catch(err => res.json(err))
+    await Farmer.updateOne({ _id: farmerId, "products._id": productId }, { $inc: { "products.$.quantity": -1 } })
+        .then(_ => res.json({ message: "Quantity updated successfully." }))
+        .catch(err => res.json(err))
 
 }
 
-module.exports.getAllOrders = async (req, res) => {
-  const farmerId = req.params.farmerId;
+module.exports.getAllOrders = async(req, res) => {
+    const farmerId = req.params.farmerId;
 
     await Farmer.findOne({ _id: farmerId }, { _id: 0, email: 1, orders: 1 })
         // .sort({"orders.status": -1})
@@ -200,32 +200,28 @@ module.exports.addOrder = async(req, res) => {
         .catch(err => res.json(err))
 }
 
-module.exports.updateOrderStatus = async (req, res) => {
-  const farmerId = req.params.farmerId;
-  const orderId = req.params.orderId;
-  const status = req.body.status;
+module.exports.updateOrderStatus = async(req, res) => {
+    const farmerId = req.params.farmerId;
+    const orderId = req.params.orderId;
+    const status = req.body.status;
 
-  await Farmer.findOne({ _id: farmerId })
-              .then(farmer => {
-                const orders = farmer.orders;
-                
-                for(let i = 0; i < orders.length; i++){
-                  if (orders[i]._id == orderId){
+    await Farmer.findOne({ _id: farmerId })
+        .then(farmer => {
+            const orders = farmer.orders;
+
+            for (let i = 0; i < orders.length; i++) {
+                if (orders[i]._id == orderId) {
                     orders[i].status = status;
-                  }
                 }
-                
-                farmer.save()
-                      .then(_ => {
-                          res.json({message: 'Order status changed successfully.'});
-                      })
-                      .catch(err => res.json(err))
-              })
-              .catch(err => res.json(err))
+            }
 
-  // await Farmer.updateOne({ _id: farmerId }, {$pull: {orders: { _id: orderId}}})
-  //             .then(_ => res.json({message: "Order cancelled successfully."}))
-  //             .catch(err => res.json(err))
+            farmer.save()
+                .then(_ => {
+                    res.json({ message: 'Order status changed successfully.' });
+                })
+                .catch(err => res.json(err))
+        })
+        .catch(err => res.json(err))
 }
 
 module.exports.cancelOrder = async(req, res) => {
