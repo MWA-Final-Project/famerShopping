@@ -1,18 +1,20 @@
-@customerId = 5f2f5ae25e047f8360b7d90a
-@farmerId = 5f30d8f578e2278c947aacd9
-@order1Id = 5f30fdc82dc4e47c541c9f1e
-@order2Id = 5f30ff6045457183f8893277
-@product1Id = 5f30db6178e2278c947aacdb
-@product2Id = f30db8d78e2278c947aacdc
+#### Variables
+@farmer1Id = 5f2f08739dfcd4496c3f2796
+@farmer2Id = 5f2f0e5a3508017380fea569
+@productId = 5f2f14e137134d3e980faa34
+@farmerOrder1Id = 5f2f1adac47b413b70f54857
+@farmerOrder2Id = 5f30ed94144ed62fcc90d14f
+@customerId = 5f2f080f9dfcd4496c3f2794
+@customerOrderId = 0
+@cartOrderId = 5f3088620fed1720bc08682f
 
-###
-
+#### Signup a farmer
 POST http://localhost:3000/account/signup HTTP/1.1
 Content-Type: application/json
 
 {"email":"sam@test.com", "password":"123"}
 
-####
+#### Signin a farmer
 POST http://localhost:3000/account/signin/ HTTP/1.1
 Content-Type: application/json
 
@@ -21,16 +23,16 @@ Content-Type: application/json
   "password": "123"
   }
 
-####
+#### Signup a customer
 POST http://localhost:3000/customers/signup HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "sam4@test.com",
+  "email": "customer@test.com",
   "password": "123",
   "fullName": {
-    "fisrtName": "sam", 
-    "lastName": "mousa"
+    "fisrtName": "Customer", 
+    "lastName": "Test"
   }, 
   "address": { 
     "street": "1000N 4th st", 
@@ -41,25 +43,25 @@ Content-Type: application/json
   "phone": "1234567"
 }
 
-####
+#### Signin a customer
 POST http://localhost:3000/customers/signin/ HTTP/1.1
 Content-Type: application/json
 
 { 
-  "email": "sam4@test.com", 
+  "email": "customer@test.com", 
   "password": "123"
 }
 
-####
+#### Signup another farmer
 POST http://localhost:3000/farmers/signup HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "sam6@test.com",
+  "email": "farmer@test.com",
   "password": "123",
   "fullName": {
-    "fisrtName": "sam", 
-    "lastName":"mousa"
+    "fisrtName": "Farmer", 
+    "lastName":"Test"
   }, 
   "address": { 
     "street": "1000N 4th st", 
@@ -71,7 +73,16 @@ Content-Type: application/json
   "rate": 4
 }
 
-####
+#### Farmer signin
+POST http://localhost:3000/farmers/signin/ HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "farmer@test.com", 
+  "password": "123"
+}
+
+#### Farmer signup
 POST http://localhost:3000/farmers/signup HTTP/1.1
 Content-Type: application/json
 
@@ -92,7 +103,7 @@ Content-Type: application/json
   "rate": 4
 }
 
-####
+#### Farmer signin
 POST http://localhost:3000/farmers/signin/ HTTP/1.1
 Content-Type: application/json
 
@@ -101,26 +112,26 @@ Content-Type: application/json
   "password": "123"
 }
 
-####
+#### Get a list of all farmers
 GET http://localhost:3000/farmers/ HTTP/1.1
 
-####
-GET http://localhost:3000/farmers/{{farmerId}} HTTP/1.1
+#### Get a farmer by Id
+GET http://localhost:3000/farmers/{{farmer1Id}} HTTP/1.1
 
-####
-GET http://localhost:3000/farmers/{{farmerId}} HTTP/1.1
+#### Get a farmer by Id
+GET http://localhost:3000/farmers/{{farmer2Id}} HTTP/1.1
 
-####
-POST http://localhost:3000/farmers/{{farmerId}}/rate/Excellent HTTP/1.1
+#### Rating a farmer - Excellent
+POST http://localhost:3000/farmers/{{farmer2Id}}/rate/Excellent HTTP/1.1
 
-####
-POST http://localhost:3000/farmers/{{farmerId}}/rate/Good HTTP/1.1
+#### Rating a farmer - Good
+POST http://localhost:3000/farmers/{{farmer2Id}}/rate/Good HTTP/1.1
 
-####
-POST http://localhost:3000/farmers/{{farmerId}}/rate/Bad HTTP/1.1
+#### Rating a farmer - Bad
+POST http://localhost:3000/farmers/{{farmer2Id}}/rate/Bad HTTP/1.1
 
-####
-POST http://localhost:3000/farmers/{{farmerId}}/products HTTP/1.1
+#### Add a product
+POST http://localhost:3000/farmers/{{farmer2Id}}/products HTTP/1.1
 Content-Type: application/json
 
 {
@@ -133,8 +144,8 @@ Content-Type: application/json
     "pushing_date": "08-08-2020"
   }
 
-####
-POST http://localhost:3000/farmers/{{farmerId}}/products HTTP/1.1
+#### Add another product
+POST http://localhost:3000/farmers/{{farmer2Id}}/products HTTP/1.1
 Content-Type: application/json
 
 {
@@ -147,17 +158,23 @@ Content-Type: application/json
     "pushing_date": "0-09-2020"
   }
 
-####
-GET http://localhost:3000/farmers/{{farmerId}}/products HTTP/1.1
+#### Get all products (Farmer with no products yet)
+GET http://localhost:3000/farmers/{{farmer1Id}}/products HTTP/1.1
 
-####
-GET http://localhost:3000/farmers/{{farmerId}}/products HTTP/1.1
+#### Get all products
+GET http://localhost:3000/farmers/{{farmer2Id}}/products HTTP/1.1
 
-####
-DELETE http://localhost:3000/farmers/{{farmerId}}/products/{{product1Id}} HTTP/1.1
+#### Increase product quantity by one
+PATCH http://localhost:3000/farmers/{{farmer2Id}}/products/{{productId}}/inc HTTP/1.1
 
-####
-POST http://localhost:3000/farmers/{{farmerId}}/orders HTTP/1.1
+#### Decrease product quantity by one
+PATCH http://localhost:3000/farmers/{{farmer2Id}}/products/{{productId}}/dec HTTP/1.1
+
+#### Remove a product
+DELETE http://localhost:3000/farmers/{{farmer2Id}}/products/{{productId}} HTTP/1.1
+
+#### Add order to farmer (To be called from Customer controller addOrder method)
+POST http://localhost:3000/farmers/{{farmer2Id}}/orders HTTP/1.1
 Content-Type: application/json
 
 {
@@ -172,27 +189,35 @@ Content-Type: application/json
     "paidStatus": "pending"
   }
 
-####
-GET http://localhost:3000/farmers/{{farmerId}}/orders HTTP/1.1
+#### Get all orders [should be sorted by ... Date descending?]
+GET http://localhost:3000/farmers/{{farmer2Id}}/orders HTTP/1.1
 
-####
-DELETE http://localhost:3000/farmers/{{farmerId}}/orders/{{order2Id}} HTTP/1.1
+#### Cancelling an order by a farmer
+DELETE http://localhost:3000/farmers/{{farmer2Id}}/orders/{{farmerOrder1Id}} HTTP/1.1
 
-####
-PATCH http://localhost:3000/farmers/{{farmerId}}/orders/{{order1Id}} HTTP/1.1
+#### Change order status to Ready (can also be sent through req.params.<>)
+PATCH http://localhost:3000/farmers/{{farmer2Id}}/orders/{{farmerOrder2Id}} HTTP/1.1
 Content-Type: application/json
 
 {
   "status": "Ready"
 }
 
-###
+#### Change order status to Complete
+PATCH http://localhost:3000/farmers/{{farmer2Id}}/orders/{{farmerOrder2Id}} HTTP/1.1
+Content-Type: application/json
+
+{
+  "status": "Complete"
+}
+
+### Get all customers (Can be used by the SuperUser)
 GET http://localhost:3000/customers HTTP/1.1
 
-###
+### Get all orders for a customer
 GET http://localhost:3000/customers/{{customerId}}/orders HTTP/1.1
 
-####
+#### Add/Make order to a customer
 POST http://localhost:3000/customers/{{customerId}}/orders HTTP/1.1
 Content-Type: application/json
 
@@ -208,13 +233,13 @@ Content-Type: application/json
   "paidStatus": "pending"
 }
 
-###
-DELETE  http://localhost:3000/customers/{{customerId}}/orders/5f3082cc4db3501a706a9bc5 HTTP/1.1
+### Cancel customer orders
+DELETE  http://localhost:3000/customers/{{customerId}}/orders/{{customerOrderId}} HTTP/1.1
 
-###
+### Get customer's shoping cart
 GET http://localhost:3000/customers/{{customerId}}/cart HTTP/1.1
 
-###
+### Add an order to shoping cart
 POST http://localhost:3000/customers/{{customerId}}/cart HTTP/1.1
 Content-Type: application/json
 
@@ -230,8 +255,8 @@ Content-Type: application/json
   "paidStatus": "pending"
 }
 
-###
-DELETE http://localhost:3000/customers/{{customerId}}/cart/5f3088620fed1720bc08682f HTTP/1.1
+### 
+DELETE http://localhost:3000/customers/{{customerId}}/cart/{{cartOrderId}} HTTP/1.1
 
 ###
 POST http://localhost:3000/customers/{{customerId}}/checkout HTTP/1.1

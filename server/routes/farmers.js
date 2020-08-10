@@ -2,8 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 
-const { signin, signup, getAllFarmers, getFarmerById, rateFarmer, getAllProducts, addProduct, removeProduct, getAllOrders, addOrder, cancelOrder, updateOrderStatus } = require("../controllers/farmers")
-    // const { signin, signup, getAllFarmers, getAllProducts: getProducts, addProduct: addProducts, removeProduct, getAllOrders: getOrders, cancelOrder, rateFarmer, getFarmerById, updateOrderStatus: changeOrderStatus, addOrder, getAllOrders } = require("../controllers/farmers")
+const {signin, signup, getAllFarmers, getAllProducts, addProduct, removeProduct, getAllOrders, addOrder, cancelOrder, rateFarmer, getFarmerById, updateOrderStatus, incQuantity, decQuantity} = require("../controllers/farmers")
 
 router.post("/signin", signin);
 
@@ -27,6 +26,12 @@ router.get("/:farmerId/products", getAllProducts);
 
 // Add a product
 router.post("/:farmerId/products", addProduct);
+
+// Get all products
+router.patch("/:farmerId/products/:productId/inc", incQuantity);
+
+// Add a product
+router.patch("/:farmerId/products/:productId/dec", decQuantity);
 
 // Remove a product
 router.delete("/:farmerId/products/:productId", removeProduct);
