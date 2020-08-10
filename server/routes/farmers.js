@@ -2,7 +2,8 @@ const express = require("express");
 
 const router = express.Router();
 
-const {signin, signup, getAllFarmers: getAll, getFarmerByEmail: getByEmail, getAllProducts: getProducts, addProduct: addProducts, removeProduct, getAllOrders: getOrders, addOrder: addOrders, cancelOrder, rateFarmer, getFarmerById, updateOrderStatus: changeOrderStatus} = require("../controllers/farmers")
+const { signin, signup, getAllFarmers, getFarmerById, rateFarmer, getAllProducts, addProduct, removeProduct, getAllOrders, addOrder, cancelOrder, updateOrderStatus } = require("../controllers/farmers")
+    // const { signin, signup, getAllFarmers, getAllProducts: getProducts, addProduct: addProducts, removeProduct, getAllOrders: getOrders, cancelOrder, rateFarmer, getFarmerById, updateOrderStatus: changeOrderStatus, addOrder, getAllOrders } = require("../controllers/farmers")
 
 router.post("/signin", signin);
 
@@ -11,7 +12,7 @@ router.post("/signup", signup);
 // FARMERS
 
 // Get all farmers
-router.get("/", getAll);
+router.get("/", getAllFarmers);
 
 // Get a farmer by email
 router.get("/:farmerId", getFarmerById);
@@ -22,10 +23,10 @@ router.post("/:farmerId/rate/:rating", rateFarmer);
 // PRODUCTS
 
 // Get all products
-router.get("/:farmerId/products", getProducts);
+router.get("/:farmerId/products", getAllProducts);
 
 // Add a product
-router.post("/:farmerId/products", addProducts);
+router.post("/:farmerId/products", addProduct);
 
 // Remove a product
 router.delete("/:farmerId/products/:productId", removeProduct);
@@ -33,13 +34,13 @@ router.delete("/:farmerId/products/:productId", removeProduct);
 // ORDERS
 
 // Get all orders
-router.get("/:farmerId/orders", getOrders);
+router.get("/:farmerId/orders", getAllOrders);
 
 // Add a product
-router.post("/:farmerId/orders", addOrders);
+router.post("/:farmerId/orders", addOrder);
 
 // Change order status
-router.patch("/:farmerId/orders/:orderId", changeOrderStatus);
+router.patch("/:farmerId/orders/:orderId", updateOrderStatus);
 
 // Cancel an order
 router.delete("/:farmerId/orders/:orderId", cancelOrder);
