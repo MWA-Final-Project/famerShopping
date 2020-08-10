@@ -1,77 +1,129 @@
-<mat-chip-list *ngIf="error">
-  <mat-chip color="primary">{{ error }}</mat-chip>
-</mat-chip-list>
-<div *ngIf="isLoading" style="text-align: center">
-  <app-loading-spinner></app-loading-spinner>
-</div>
-<form [formGroup]="signupForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
-  <div class="form-container">
-    <mat-card>
-      <h3>Create account</h3>
-      <mat-form-field class="controls">
-        <input matInput type="text" name="email" placeholder="Email" [formControl]="signupForm.get('email')" />
-      </mat-form-field>
-      <div *ngIf="signupForm.get('email').hasError('invalid')">Error</div>
-      <br>
+<html lang="en">
 
-      <mat-form-field class="controls">
-        <input matInput type="password" name="password" placeholder="Password"
-          [formControl]="signupForm.get('password')" />
-      </mat-form-field>
-      <div *ngIf="signupForm.get('password').hasError('invalid')">Error</div>
-      <br>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
 
-      <mat-form-field class="controls">
-        <input matInput type="text" name="firstName" placeholder="First Name"
-          [formControl]="signupForm.get('firstName')" />
-      </mat-form-field>
-      <div *ngIf="signupForm.get('firstName').hasError('invalid')">Error</div>
-      <mat-form-field class="controls">
-        <input matInput type="text" name="lastName" placeholder="Last Name"
-          [formControl]="signupForm.get('lastName')" />
-      </mat-form-field>
+  <title>Signup</title>
+</head>
 
-      <div *ngIf="signupForm.get('lastName').hasError('invalid')">Error</div>
-      <br>
-      <mat-form-field class="controls">
-        <input matInput type="text" name="street" placeholder="Street"
-          [formControl]="signupForm.get('street')" />
-      </mat-form-field>
+<body>
+  <div id="signup">
+    <div class="container">
+      <div id="signup-row" class="row justify-content-center align-items-center">
+        <div id="signup-column" class="col-md-6">
+          <div class="signup-box col-md-12">
 
-      <div *ngIf="signupForm.get('street').hasError('invalid')">Error</div>
-      <br>
-      <mat-form-field class="controls">
-        <input matInput type="text" name="city" placeholder="City"
-          [formControl]="signupForm.get('city')" />
-      </mat-form-field>
 
-      <div *ngIf="signupForm.get('city').hasError('invalid')">Error</div>
-      <br>
-      <mat-form-field class="controls">
-        <input matInput type="text" name="state" placeholder="State"
-          [formControl]="signupForm.get('state')" />
-      </mat-form-field>
 
-      <div *ngIf="signupForm.get('state').hasError('invalid')">Error</div>
-      <br>
-      <mat-form-field class="controls">
-        <input matInput type="text" name="zipcode" placeholder="Zipcode"
-          [formControl]="signupForm.get('zipcode')" />
-      </mat-form-field>
+      <mat-chip-list *ngIf="error">
+        <mat-chip color="primary">{{ error }}</mat-chip>
+      </mat-chip-list>
+      <div *ngIf="isLoading" style="text-align: center">
+        <app-loading-spinner></app-loading-spinner>
+      </div>
 
-      <div *ngIf="signupForm.get('zipcode').hasError('invalid')">Error</div>
-      <br>
-      <mat-form-field class="controls">
-        <input matInput type="text" name="phone" placeholder="phone"
-          [formControl]="signupForm.get('phone')" />
-      </mat-form-field>
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
+        <h3 class="text-center bg-success text-white">Create account</h3>
+        <mat-card>
 
-      <div *ngIf="signupForm.get('phone').hasError('invalid')">Error</div>
-      <br>
+          <div class="form-row">
+            <div class="form-group col-md-6">
 
-      <button mat-raised-button color="primary" type="submit" [disabled]="!signupForm.valid">
-        Sign Up
-      </button>
-    </mat-card>
+              <mat-form-field class="controls">
+                <input class="form-control" type="text" name="email" placeholder="Email"
+                  [formControl]="signupForm.get('email')" />
+              </mat-form-field>
+            </div>
+
+            <div *ngIf="signupForm.get('email').hasError('invalid')">Error</div>
+            <br>
+            <div class="form-group col-md-6">
+              <mat-form-field class="controls">
+                <input class="form-control" type="password" name="password" placeholder="Password"
+                  [formControl]="signupForm.get('password')" />
+              </mat-form-field>
+            </div>
+          </div>
+          <!-- end of form row -->
+          <div *ngIf="signupForm.get('password').hasError('invalid')">Error</div>
+          <br>
+          <div class="form-group col-md-6">
+            <mat-form-field class="controls">
+              <input class="form-control" type="text" name="firstName" placeholder="First Name"
+                [formControl]="signupForm.get('firstName')" />
+            </mat-form-field>
+          </div>
+          <div *ngIf="signupForm.get('firstName').hasError('invalid')">Error</div>
+          <br>
+          <div class="form-group col-md-6">
+            <mat-form-field class="controls">
+              <input class="form-control" type="text" name="lastName" placeholder="Last Name"
+                [formControl]="signupForm.get('lastName')" /> <!-- matInput -->
+            </mat-form-field>
+          </div>
+
+          <div *ngIf="signupForm.get('lastName').hasError('invalid')">Error</div>
+          <br>
+
+          <div class="form-group col-md-6">
+            <mat-form-field class="controls">
+              <!-- start of form froup tag -->
+              <input class="form-control" type="text" name="street" id="inputCity" placeholder="Street"
+                [formControl]="signupForm.get('street')" />
+            </mat-form-field>
+          </div>
+
+          <div *ngIf="signupForm.get('street').hasError('invalid')">Error</div>
+          <br>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <mat-form-field class="controls">
+                <input class="form-control" type="text" name="city" placeholder="City"
+                  [formControl]="signupForm.get('city')" />
+              </mat-form-field> <!-- matInput tag -->
+            </div>
+
+            <div *ngIf="signupForm.get('city').hasError('invalid')">Error</div>
+            <br>
+
+            <div class="form-group col-md-6">
+              <mat-form-field class="controls">
+                <input class="form-control" type="text" name="state" placeholder="State"
+                  [formControl]="signupForm.get('state')" />
+              </mat-form-field> <!-- matInput tag -->
+            </div>
+            <div *ngIf="signupForm.get('state').hasError('invalid')">Error</div>
+            <br>
+
+            <div class="form-group col-md-6">
+              <mat-form-field class="controls">
+                <input class="form-control" type="text" name="zipcode" placeholder="Zipcode"
+                  [formControl]="signupForm.get('zipcode')" />
+              </mat-form-field> <!-- matInput tag -->
+            </div>
+            <div *ngIf="signupForm.get('zipcode').hasError('invalid')">Error</div>
+            <br>
+
+            <div class="form-group col-md-6">
+              <mat-form-field class="controls">
+                <input class="form-control" type="text" name="phone" placeholder="phone"
+                  [formControl]="signupForm.get('phone')" />
+              </mat-form-field> <!-- matInput tag -->
+            </div>
+            <div *ngIf="signupForm.get('phone').hasError('invalid')">Error</div>
+            <br>
+          </div>
+          <button class="btn btn-success" type="submit" [disabled]="!signupForm.valid">
+            Sign Up
+          </button>
+
+        </mat-card>
+      </form>
+    </div>
+    </div>
+    </div>
   </div>
-</form>
+  </div>
+</body>

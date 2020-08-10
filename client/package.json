@@ -22,7 +22,7 @@
     "@angular/platform-browser-dynamic": "~10.0.6",
     "@angular/router": "~10.0.6",
     "@fortawesome/fontawesome-free": "^5.14.0",
-    "bootstrap": "^4.5.2",
+    "bootstrap": "^5.0.0-alpha1",
     "jquery": "^3.5.1",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",

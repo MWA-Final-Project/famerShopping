@@ -1,44 +1,43 @@
-<mat-chip-list *ngIf="error">
-  <mat-chip color="primary">{{ error }}</mat-chip>
-</mat-chip-list>
+ <html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+
+  <title>Signin </title>
+</head>
+
+<body class="text-center">
+  <mat-chip-list *ngIf="error">
+    <mat-chip color="primary">{{ error }}</mat-chip>
+  </mat-chip-list>
   <div *ngIf="isLoading" style="text-align: center">
     <app-loading-spinner></app-loading-spinner>
   </div>
-  
-  <form [formGroup]="signinForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
+
+  <form class="form-signin" [formGroup]="signinForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
     <div class="form-container">
       <mat-card>
-        <h3>Login</h3>
+        <h3 class="h3 mb-3 font-weight-normal">Login</h3>
+
         <mat-form-field class="controls">
-          <input
-            matInput
-            type="text"
-            name="email"
-            placeholder="Email"
-            [formControl]="signinForm.get('email')"
-        /></mat-form-field>
-  
-        <div *ngIf="signinForm.get('email').hasError('invalid')">Error</div>
-        <mat-form-field class="controls">
-          <input
-            matInput
-            type="password"
-            name="password"
-            placeholder="Password"
-            [formControl]="signinForm.get('password')"
-          />
+          <input type="email" name="email" class="form-control" placeholder="Email address"
+            [formControl]="signinForm.get('email')" />
         </mat-form-field>
-  
+
+        <div *ngIf="signinForm.get('email').hasError('invalid')">Error</div>
+
+
+        <mat-form-field class="controls">
+          <input class="form-control" type="password" name="password" placeholder="Password"
+            [formControl]="signinForm.get('password')" />
+        </mat-form-field>
+
         <div *ngIf="signinForm.get('password').hasError('invalid')">Error</div>
-        <button
-          mat-raised-button
-          color="primary"
-          type="submit"
-          [disabled]="!signinForm.valid"
-        >
+        <button class="btn btn-lg btn-outline-success" btn-block type="submit" [disabled]="!signinForm.valid">
           Sign In
         </button>
       </mat-card>
     </div>
-  </form>
-  
+  </form> 

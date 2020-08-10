@@ -8,11 +8,12 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { MaterialModule } from "../material/material.module";
 import { HttpClientModule } from "@angular/common/http";
 import { LoadingSpinnerComponent } from "./loading-spinner/loading-spinner.component";
-import { LandingPageComponent } from './landing-page/landing-page.component'
-import { VoidSignInGuard } from './../guards/void-sign-in.guard';
+import { LandingPageComponent } from './landing-page/landing-page.component';
+import { signin1Component } from "./signin1/signin1.component";
+
 
 @NgModule({
-  declarations: [SignupComponent, SigninComponent, LoadingSpinnerComponent, LandingPageComponent],
+  declarations: [SignupComponent, SigninComponent, LoadingSpinnerComponent, LandingPageComponent, signin1Component],
   imports: [
     CommonModule,
     BrowserModule,
@@ -22,8 +23,9 @@ import { VoidSignInGuard } from './../guards/void-sign-in.guard';
     RouterModule.forChild([
       { path: "",component: LandingPageComponent,
           children:[
-            { path: "signup",component: SignupComponent , canActivate:[VoidSignInGuard]},
-            { path: "signin", component: SigninComponent, canActivate:[VoidSignInGuard] },
+            { path: "signup",component: SignupComponent},
+            { path: "signin", component: SigninComponent },
+            { path: "signin1", component: signin1Component },
             { path: "", redirectTo: "signin", pathMatch: "full" }
           ]          
       }

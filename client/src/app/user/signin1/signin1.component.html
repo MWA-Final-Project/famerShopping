@@ -1,0 +1,48 @@
+<html lang="en">
+
+
+ <title>Signin </title>
+
+<mat-chip-list *ngIf="error">
+    <mat-chip color="primary">{{ error }}</mat-chip>
+</mat-chip-list>
+<div *ngIf="isLoading" style="text-align: center">
+    <app-loading-spinner></app-loading-spinner>
+</div>
+<div id="login">
+    <div class="container"></div>
+    <div id="login-row" class="row justify-content-center align-items-center">
+
+        <div id="login-column" class="col-md-6">
+            <div class="login-box col-md-12">
+
+                <form id="login-form" class="form" [formGroup]="signinForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
+                    <mat-card>
+                        <h3 class="text-center text-success">Login</h3>
+                        <div class="form-group">
+                            <mat-form-field class="text-info" class="controls">
+                                <input type="email" name="email" class="form-control" placeholder="Email address"
+                                    [formControl]="signinForm.get('email')" />
+                            </mat-form-field>
+                        </div>
+                        <div *ngIf="signinForm.get('email').hasError('invalid')">Error</div>
+
+                        <div class="form-group">
+                            <mat-form-field class="controls">
+                                <input class="form-control" type="password" name="password" placeholder="Password"
+                                    [formControl]="signinForm.get('password')" />
+                            </mat-form-field>
+                        </div>
+                        <div *ngIf="signinForm.get('password').hasError('invalid')">Error</div>
+
+                        <button type="submit" name="submit" class="btn btn-success btn-sm " value="Login"
+                            [disabled]="!signinForm.valid">
+                            Log In
+                        </button>
+                        <div class="form-group">
+                            <div id="register-link" class="text-right">
+                                <a href="#" class="text-success">Register here</a>
+                            </div>
+                        </div>
+                    </mat-card>
+                </form>
