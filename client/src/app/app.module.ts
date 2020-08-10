@@ -11,30 +11,44 @@ import { MaterialModule } from "./material/material.module";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AuthInterceptor } from "./user/auth-interceptor";
 import { HomeComponent } from './home/home.component';
-import { Home1Component } from './home1/home1.component';
-import { Home2Component } from './home2/home2.component';
+
+import { AuthGuard } from './/guards/auth.guard';
+import { FarmerComponent } from './farmer/farmer.component';
+import { FarmerProductsComponent } from './farmer-products/farmer-products.component';
+import { FarmerOrderssComponent } from './farmer-orderss/farmer-orderss.component';
+import { CustomersComponent } from './customers/customers.component';
+import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
 
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, Home1Component, Home2Component],
+  declarations: [AppComponent, HomeComponent, FarmerComponent, FarmerProductsComponent, FarmerOrderssComponent, CustomersComponent, FooterComponent, HeaderComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     UserModule,
     MaterialModule,
     RouterModule.forRoot([
-      {path:"home", component: HomeComponent},
-      {path:"home1", component: Home1Component},
-      {path:"home2", component: Home2Component},
+      {path:"home", component: HomeComponent, canActivate:[AuthGuard],
+        children:[
+          { path: "farmer",component: FarmerComponent,
+            children:[
+              { path: "products",component: FarmerProductsComponent},
+              { path: "orders",component: FarmerOrderssComponent},
+              { path: "", redirectTo: "products", pathMatch: "full" }
+            ] 
+          },
+          { path: "custmer", component: CustomersComponent },
+          { path: "", redirectTo: "farmer", pathMatch: "full" }
+        ] 
+
+      },
       { path: "", redirectTo: "home", pathMatch: "full" },
-      { path:"home", component: HomeComponent},
-      { path: "user", loadChildren: "./user/user.module" },
-      { path: "**", redirectTo: "home", pathMatch: "full" }
-      
+      { path: "**", redirectTo: "home", pathMatch: "full" },
     ])
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, AuthGuard
   ],
   bootstrap: [AppComponent]
 })

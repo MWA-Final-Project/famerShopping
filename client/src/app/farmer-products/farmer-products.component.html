@@ -1,0 +1,85 @@
+<mat-card>
+  <h3>add new product</h3>
+  <mat-form-field class="controls">
+    <input
+      matInput
+      type="text"
+      name="name"
+      placeholder="name"
+      
+  /></mat-form-field>
+
+
+  <mat-form-field class="controls">
+    <input
+      matInput
+      type="text"
+      name="description"
+      placeholder="description"
+      
+    />
+  </mat-form-field>
+  <mat-form-field class="controls">
+    <input
+      matInput
+      type="text"
+      name="price"
+      placeholder="price"
+      
+    />
+  </mat-form-field>
+  <mat-form-field class="controls">
+    <input
+      matInput
+      type="text"
+      name="catogry"
+      placeholder="catogry"
+      
+    />
+  </mat-form-field>
+  <mat-form-field class="controls">
+    <input
+      matInput
+      type="text"
+      name="quantity"
+      placeholder="quantity"
+      
+    />
+  </mat-form-field>
+    <input type="file" name="avatar" #avatarFile />
+ 
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+  
+  >
+    create
+  </button>
+</mat-card>
+
+<div class="album py-5 bg-light" >
+    <div class="container" *ngFor="let product of products; let i = index;">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card mb-4 box-shadow">
+            <img class="card-img-top" data-src={{product.pic}} alt="product image">
+            <p>{{product.name}}</p>
+            <div class="card-body">
+              <p class="card-text">description {{product.description}}</p>
+              <p class="card-text"></p>
+              <p class="card-text">price {{product.price}}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" (click)="deleteProduct(i)" class="btn btn-sm btn-outline-success">remove</button>
+                </div>
+                <button (click)="increaseQuantity(i)">inc</button>
+                <small class="text-muted">{{product.quantity}} in stock</small>
+                <button (click)="decreaseQuantity(i)">dec</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
