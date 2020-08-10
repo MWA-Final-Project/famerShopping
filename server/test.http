@@ -111,7 +111,12 @@ POST http://localhost:3000/farmers/5f2f0e5a3508017380fea569/rate/Good HTTP/1.1
 POST http://localhost:3000/farmers/5f2f0e5a3508017380fea569/rate/Bad HTTP/1.1
 
 ####
+<<<<<<< Updated upstream
 POST http://localhost:3000/farmers/5f2f0e5a3508017380fea569/products HTTP/1.1
+=======
+
+POST http://localhost:3000/farmers/sam2@test.com/products HTTP/1.1
+>>>>>>> Stashed changes
 Content-Type: application/json
 
 {
@@ -125,7 +130,12 @@ Content-Type: application/json
   }
 
 ####
+<<<<<<< Updated upstream
 POST http://localhost:3000/farmers/5f2f0e5a3508017380fea569/products HTTP/1.1
+=======
+
+POST http://localhost:3000/farmers/2bla@bla.com/products HTTP/1.1
+>>>>>>> Stashed changes
 Content-Type: application/json
 
 {
@@ -139,16 +149,30 @@ Content-Type: application/json
   }
 
 ####
+<<<<<<< Updated upstream
 GET http://localhost:3000/farmers/5f2f0e5a3508017380fea569/products HTTP/1.1
+=======
+
+GET http://localhost:3000/farmers/2bla@bla.com/products HTTP/1.1
+>>>>>>> Stashed changes
 
 ####
 GET http://localhost:3000/farmers/5f2f08739dfcd4496c3f2796/products HTTP/1.1
 
 ####
+<<<<<<< Updated upstream
 DELETE http://localhost:3000/farmers/5f2f0e5a3508017380fea569/products/5f2fba032079b12a54583620 HTTP/1.1
 
 ####
 POST http://localhost:3000/farmers/5f2f0e5a3508017380fea569/orders HTTP/1.1
+=======
+
+DELETE http://localhost:3000/farmers/sam@test.com/products/5f2fba032079b12a54583620 HTTP/1.1
+
+####
+
+POST http://localhost:3000/farmers/2bla@bla.com/orders HTTP/1.1
+>>>>>>> Stashed changes
 Content-Type: application/json
 
 {
@@ -166,8 +190,12 @@ Content-Type: application/json
 ####
 GET http://localhost:3000/farmers/5f2f0e5a3508017380fea569/orders HTTP/1.1
 
+<<<<<<< Updated upstream
 ####
 DELETE http://localhost:3000/farmers/5f2f0e5a3508017380fea569/orders/5f2f1adac47b413b70f54857 HTTP/1.1
+=======
+GET http://localhost:3000/farmers/2bla@bla.com/orders HTTP/1.1
+>>>>>>> Stashed changes
 
 ####
 PATCH http://localhost:3000/farmers/5f2f0e5a3508017380fea569/orders/5f30a97c3e66f92f08a499d9 HTTP/1.1

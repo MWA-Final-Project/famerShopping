@@ -1,1 +1,25 @@
-<p>farmer-orderss works!</p>
+<div class="album py-5 bg-light" >
+    <div class="container" *ngFor="let order of orders; let i = index;">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card mb-4 box-shadow">
+            <img class="card-img-top" data-src={{order.pic}} alt="order image">
+            <p>{{order.name}}</p>
+            <div class="card-body">
+              <p class="card-text">description {{order.description}}</p>
+              <p class="card-text"></p>
+              <p class="card-text">price {{order.price}}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" (click)="deleteorder(i)" class="btn btn-sm btn-outline-success">remove</button>
+                </div>
+                <button (click)="increaseQuantity(i)">inc</button>
+                <small class="text-muted">{{order.quantity}} in stock</small>
+                <button (click)="decreaseQuantity(i)">dec</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
