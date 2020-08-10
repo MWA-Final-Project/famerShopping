@@ -26,7 +26,7 @@ module.exports.signin = async (req, res) => {
         if (!result) {
           console.log({ message: "Unsuccessful log in attempt" });
   
-          return res.json({ message: "Unsuccessful login attempt" });
+          return res.status(401).json({ message: "Unsuccessful login attempt" });
         }
   
         token = jwt.sign(
@@ -35,7 +35,7 @@ module.exports.signin = async (req, res) => {
           { expiresIn: "1h" }
         );
   
-        res.status(200).json({ token: token });
+        res.status(200).json({ token: token, role:"custmer", id: custmerAccount._id, email: custmerAccount.email, fullName: custmerAccount.fullName, firstName: custmerAccount.fullName.firstName,lastName: custmerAccount.fullName.lastName});
       })
       .catch(err => res.json({ message: err }));
 }

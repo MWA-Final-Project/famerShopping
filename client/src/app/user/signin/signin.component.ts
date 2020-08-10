@@ -39,7 +39,7 @@ export class SigninComponent implements OnInit {
   onSubmit() {
     if(this.radioService.getRadio()==2){
       console.log("radio value"+this.radioService.getRadio());
-      this.baseUrl = "http://localhost:3000/custmers"
+      this.baseUrl = "http://localhost:3000/customers"
     }
     const account = {
       email: this.signinForm.value.email,

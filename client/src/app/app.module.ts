@@ -15,11 +15,14 @@ import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './/guards/auth.guard';
 import { FarmerComponent } from './farmer/farmer.component';
 import { FarmerProductsComponent } from './farmer-products/farmer-products.component';
-import { FarmerOrderssComponent } from './farmer-orderss/farmer-orderss.component'
+import { FarmerOrderssComponent } from './farmer-orderss/farmer-orderss.component';
+import { CustomersComponent } from './customers/customers.component';
+import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
 
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, FarmerComponent, FarmerProductsComponent, FarmerOrderssComponent],
+  declarations: [AppComponent, HomeComponent, FarmerComponent, FarmerProductsComponent, FarmerOrderssComponent, CustomersComponent, FooterComponent, HeaderComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -35,7 +38,7 @@ import { FarmerOrderssComponent } from './farmer-orderss/farmer-orderss.componen
               { path: "", redirectTo: "products", pathMatch: "full" }
             ] 
           },
-          // { path: "customer", component: CustomerComponent },
+          { path: "custmer", component: CustomersComponent },
           { path: "", redirectTo: "farmer", pathMatch: "full" }
         ] 
 

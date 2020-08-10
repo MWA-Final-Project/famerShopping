@@ -12,7 +12,9 @@ export class LandingPageComponent implements OnInit {
     
    }
    radioChange(event: MatRadioChange) {
-    if(event.value==2){
+    if(event.value==1){
+      this.radioService.setRadio(1);
+    }else{
       this.radioService.setRadio(2);
     }
     

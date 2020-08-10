@@ -14,7 +14,7 @@ export class AuthService {
   private token: string;
   private responseMessage;
 
-  loginbaseUrl: string = "http://localhost:3000/custmers";
+  
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -26,15 +26,32 @@ export class AuthService {
   }
   signIn(account,baseUrl) {
     this.http
-      .post<{ token: string }>(baseUrl + "/signin", account)
+      .post<{ token: string, 
+              role: string,
+              email:string
+              id:string,
+              firstName:string,
+              lastName: string }>(baseUrl + "/signin", account)
       .subscribe(response => {
+        console.log(response)
         const token = response.token;
-        localStorage.setItem('token',token)
+        localStorage.setItem('token',response.token)
+        localStorage.setItem('id',response.id)
+        localStorage.setItem('firstName',response.firstName);
+        localStorage.setItem('lastName',response.lastName);
+        localStorage.setItem('email',response.email);
         
-        //this.token = token;
+        
         this.responseMessage = response;
-
-        this.router.navigate(["/home"])
+        if(response.role == "farmer"){
+          
+            this.router.navigate(["/home/farmer"])
+        }else{
+          console.log("I'm ay 7aga")
+          this.router.navigate(["/home/custmer"])
+        }
+      }, err => {
+        console.log(err.error.message)
       });
 
     return this.responseMessage;
