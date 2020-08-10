@@ -34,7 +34,10 @@ export class SigninComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+  }
+
 
   onSubmit() {
     if(this.radioService.getRadio()==2){
@@ -45,16 +48,20 @@ export class SigninComponent implements OnInit {
       email: this.signinForm.value.email,
       password: this.signinForm.value.password
     };
+   
     this.isLoading = true;
 
     const response = this.authService.signIn(account, this.baseUrl);
-
+    
+    this.error = this.authService.getErrorMessage();
     if (response) {
       this.isLoading = false;
       console.log(response);
     } else {
+      console.log(response);
       this.error = response;
       this.isLoading = false;
     }
+    console.log(this.authService.getErrorMessage())
   }
 }

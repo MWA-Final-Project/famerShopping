@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 #### Variables
 @farmer1Id = 5f2f08739dfcd4496c3f2796
 @farmer2Id = 5f2f0e5a3508017380fea569
@@ -9,6 +10,9 @@
 @cartOrderId = 5f3088620fed1720bc08682f
 
 #### Signup a farmer
+=======
+const custmerid = ""
+>>>>>>> Stashed changes
 POST http://localhost:3000/account/signup HTTP/1.1
 Content-Type: application/json
 
@@ -127,11 +131,16 @@ POST http://localhost:3000/farmers/{{farmer2Id}}/rate/Excellent HTTP/1.1
 #### Rating a farmer - Good
 POST http://localhost:3000/farmers/{{farmer2Id}}/rate/Good HTTP/1.1
 
+<<<<<<< Updated upstream
 #### Rating a farmer - Bad
 POST http://localhost:3000/farmers/{{farmer2Id}}/rate/Bad HTTP/1.1
 
 #### Add a product
 POST http://localhost:3000/farmers/{{farmer2Id}}/products HTTP/1.1
+=======
+####
+POST http://localhost:3000/farmers/5f3051c6f006bd8205d2758b/products HTTP/1.1
+>>>>>>> Stashed changes
 Content-Type: application/json
 
 {
@@ -144,8 +153,13 @@ Content-Type: application/json
     "pushing_date": "08-08-2020"
   }
 
+<<<<<<< Updated upstream
 #### Add another product
 POST http://localhost:3000/farmers/{{farmer2Id}}/products HTTP/1.1
+=======
+#### 
+POST http://localhost:3000/farmers/5f3051c6f006bd8205d2758b/products HTTP/1.1
+>>>>>>> Stashed changes
 Content-Type: application/json
 
 {
@@ -158,6 +172,7 @@ Content-Type: application/json
     "pushing_date": "0-09-2020"
   }
 
+<<<<<<< Updated upstream
 #### Get all products (Farmer with no products yet)
 GET http://localhost:3000/farmers/{{farmer1Id}}/products HTTP/1.1
 
@@ -175,6 +190,19 @@ DELETE http://localhost:3000/farmers/{{farmer2Id}}/products/{{productId}} HTTP/1
 
 #### Add order to farmer (To be called from Customer controller addOrder method)
 POST http://localhost:3000/farmers/{{farmer2Id}}/orders HTTP/1.1
+=======
+####
+GET http://localhost:3000/farmers/5f3051c6f006bd8205d2758b/products HTTP/1.1
+
+####
+GET http://localhost:3000/farmers/5f2f08739dfcd4496c3f2796/products HTTP/1.1
+
+####
+DELETE http://localhost:3000/farmers/5f2f0e5a3508017380fea569/products/5f2fba032079b12a54583620 HTTP/1.1
+
+####
+POST http://localhost:3000/farmers/5f2f0e5a3508017380fea569/orders HTTP/1.1
+>>>>>>> Stashed changes
 Content-Type: application/json
 
 {
@@ -192,8 +220,13 @@ Content-Type: application/json
 #### Get all orders [should be sorted by ... Date descending?]
 GET http://localhost:3000/farmers/{{farmer2Id}}/orders HTTP/1.1
 
+<<<<<<< Updated upstream
 #### Cancelling an order by a farmer
 DELETE http://localhost:3000/farmers/{{farmer2Id}}/orders/{{farmerOrder1Id}} HTTP/1.1
+=======
+####
+DELETE http://localhost:3000/farmers/5f2f0e5a3508017380fea569/orders/5f2f1adac47b413b70f54857 HTTP/1.1
+>>>>>>> Stashed changes
 
 #### Change order status to Ready (can also be sent through req.params.<>)
 PATCH http://localhost:3000/farmers/{{farmer2Id}}/orders/{{farmerOrder2Id}} HTTP/1.1

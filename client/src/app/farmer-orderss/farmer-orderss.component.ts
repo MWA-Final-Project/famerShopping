@@ -8,6 +8,7 @@ import { FarmersService } from './../services/farmers.service'
 })
 export class FarmerOrderssComponent implements OnInit {
   orders;
+  selected = "option2"
   constructor(private Farmers: FarmersService) { 
     this.Farmers.getOrders();
   }

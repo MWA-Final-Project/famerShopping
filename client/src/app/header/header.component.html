@@ -18,29 +18,41 @@
         </div>
     </div>
     <div class="navbar navbar-dark bg-success box-shadow">
-        <div class="container d-flex justify-content-between">
-            <a href="#" class="navbar-brand d-flex align-items-center">
+      <div class="container d-flex justify-content-between">
+        <a href="#" class="navbar-brand d-flex align-items-center">
 
-                <!--<p>put logo here </p>-->
-                <!--logo -->
-                <!--<img src="../../assets/image/logo.png"/>-->
-                <img src="../../assets/image/logo.png" alt="logo" width="100" height="50" class="rounded float-left">
-                <p> welcome {{user}}</p>
-            </a>
+            <!--<p>put logo here </p>-->
+            <!--logo -->
+            <!--<img src="../../assets/image/logo.png"/>-->
+            <img src="../../assets/image/logo.png" alt="logo" width="100" height="50" class="rounded float-left">
+            <p> welcome {{user}}</p>
+        </a>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-         
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+     
           <span class="navbar-toggler-icon"> </span>
         </button>
-            <ul class="nav justify-content-end">
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="#">profile</a>
-                </li>
-                <button mat-raised-button (click)="logout()" color="primary" type="button">Logout</button>
-
-            </ul>
-        </div>
-
+        <ul class="nav justify-content-end">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="#">profile</a>
+          </li>
+          <button mat-raised-button (click)="logout()" color="primary" type="button" >Logout</button>
+         
+        </ul>
+      </div>
+      
+      
     </div>
-
-</header>
+    <section class="jumbotron text-center">
+      <div class="container">
+        <h1 class="jumbotron-heading">MWA Fresh Market</h1>
+        <p class="lead text-muted">Eat with love, we serve our products with love</p>
+        <p>
+          <a [routerLink]="['farmer','products']" *ngIf="!custmerStatus" class="btn btn-success my-2" >Products</a>
+          <a [routerLink]="['custmer','farmers']" *ngIf="custmerStatus" class="btn btn-success my-2" >Farmers</a>
+          <a [routerLink]="[logedInUser,'orders']" class="btn btn-success my-2">My Orders</a>
+          <a [routerLink]="['custmer','cart']" *ngIf="custmerStatus" class="btn btn-success my-2">My CART</a>
+        </p>
+      </div>
+  </section>
+  </header>
