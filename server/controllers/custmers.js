@@ -120,24 +120,24 @@ module.exports.getCustomerCart = async(req, res) => {
         .catch(err => req.json(err))
 }
 
-module.exports.addToCart = async(req, res) => {
-    const customerId = req.params.custId;
-    const order = req.body;
+module.exports.addToCart = async (req, res) => {
+  const customerId = req.params.custId;
+  const order = req.body;
 
-    // await Custmer.updateOne({ _id: customerId }, { $push: { cart: order } })
-    //     .then(_ => res.json({ message: "Order added to cart successfully." }))
-    //     .catch(err => res.json({ "err": "error" }))
+  // await Custmer.updateOne({_id: customerId}, {$push: {cart: order}})
+  //             .then(_ => res.json({message: "Order added to cart successfully."}))
+  //             .catch(err => res.json({"err": "error"}))
 
-    await Custmer.findOne({ _id: customerId })
-        .then(customer => {
-            customer.cart.push(order);
-
-            customer.save().then(_ => {
-                    res.json({ message: 'Order successfully added.' }); // farmer
+  await Custmer.findOne({_id: customerId })
+              .then(customer => {
+                customer.cart.push(order);
+                
+                customer.save().then(_ => {
+                  res.json({message: 'Order added to cart successfully.'});  // farmer
                 })
                 .catch(err => res.json(err))
-        })
-        .catch(err => res.json(err))
+              })
+              .catch(err => res.json(err))
 }
 
 module.exports.removeFromCart = async(req, res) => {
