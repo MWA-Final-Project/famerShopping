@@ -4,7 +4,6 @@ Content-Type: application/json
 {"email":"sam@test.com", "password":"123"}
 
 ####
-
 POST http://localhost:3000/account/signin/ HTTP/1.1
 Content-Type: application/json
 
@@ -14,7 +13,6 @@ Content-Type: application/json
   }
 
 ####
-
 POST http://localhost:3000/customers/signup HTTP/1.1
 Content-Type: application/json
 
@@ -35,7 +33,6 @@ Content-Type: application/json
 }
 
 ####
-
 POST http://localhost:3000/customers/signin/ HTTP/1.1
 Content-Type: application/json
 
@@ -45,7 +42,6 @@ Content-Type: application/json
 }
 
 ####
-
 POST http://localhost:3000/farmers/signup HTTP/1.1
 Content-Type: application/json
 
@@ -67,7 +63,6 @@ Content-Type: application/json
 }
 
 ####
-
 POST http://localhost:3000/farmers/signup HTTP/1.1
 Content-Type: application/json
 
@@ -89,7 +84,6 @@ Content-Type: application/json
 }
 
 ####
-
 POST http://localhost:3000/farmers/signin/ HTTP/1.1
 Content-Type: application/json
 
@@ -99,29 +93,25 @@ Content-Type: application/json
 }
 
 ####
-
 GET http://localhost:3000/farmers/ HTTP/1.1
 
 ####
-
-GET http://localhost:3000/farmers/sam6@test.com HTTP/1.1
-
-####
-
-GET http://localhost:3000/farmers/ema@test.com HTTP/1.1
+GET http://localhost:3000/farmers/5f2f08739dfcd4496c3f2796 HTTP/1.1
 
 ####
-POST http://localhost:3000/farmers/ema@test.com/rate/Excellent HTTP/1.1
+GET http://localhost:3000/farmers/5f2f0e5a3508017380fea569 HTTP/1.1
 
 ####
-POST http://localhost:3000/farmers/ema@test.com/rate/Good HTTP/1.1
+POST http://localhost:3000/farmers/5f2f0e5a3508017380fea569/rate/Excellent HTTP/1.1
 
 ####
-POST http://localhost:3000/farmers/ema@test.com/rate/Bad HTTP/1.1
+POST http://localhost:3000/farmers/5f2f0e5a3508017380fea569/rate/Good HTTP/1.1
 
 ####
+POST http://localhost:3000/farmers/5f2f0e5a3508017380fea569/rate/Bad HTTP/1.1
 
-POST http://localhost:3000/farmers/ema@test.com/products HTTP/1.1
+####
+POST http://localhost:3000/farmers/5f2f0e5a3508017380fea569/products HTTP/1.1
 Content-Type: application/json
 
 {
@@ -135,8 +125,7 @@ Content-Type: application/json
   }
 
 ####
-
-POST http://localhost:3000/farmers/ema@test.com/products HTTP/1.1
+POST http://localhost:3000/farmers/5f2f0e5a3508017380fea569/products HTTP/1.1
 Content-Type: application/json
 
 {
@@ -150,20 +139,16 @@ Content-Type: application/json
   }
 
 ####
-
-GET http://localhost:3000/farmers/ema@test.com/products HTTP/1.1
-
-####
-
-GET http://localhost:3000/farmers/sam6@test.com/products HTTP/1.1
+GET http://localhost:3000/farmers/5f2f0e5a3508017380fea569/products HTTP/1.1
 
 ####
-
-DELETE http://localhost:3000/farmers/ema@test.com/products/5f2fba032079b12a54583620 HTTP/1.1
+GET http://localhost:3000/farmers/5f2f08739dfcd4496c3f2796/products HTTP/1.1
 
 ####
+DELETE http://localhost:3000/farmers/5f2f0e5a3508017380fea569/products/5f2fba032079b12a54583620 HTTP/1.1
 
-POST http://localhost:3000/farmers/ema@test.com/orders HTTP/1.1
+####
+POST http://localhost:3000/farmers/5f2f0e5a3508017380fea569/orders HTTP/1.1
 Content-Type: application/json
 
 {
@@ -179,12 +164,18 @@ Content-Type: application/json
   }
 
 ####
-
-GET http://localhost:3000/farmers/ema@test.com/orders HTTP/1.1
+GET http://localhost:3000/farmers/5f2f0e5a3508017380fea569/orders HTTP/1.1
 
 ####
+DELETE http://localhost:3000/farmers/5f2f0e5a3508017380fea569/orders/5f2f1adac47b413b70f54857 HTTP/1.1
 
-DELETE http://localhost:3000/farmers/ema@test.com/orders/5f2f1adac47b413b70f54857 HTTP/1.1
+####
+PATCH http://localhost:3000/farmers/5f2f0e5a3508017380fea569/orders/5f30a97c3e66f92f08a499d9 HTTP/1.1
+Content-Type: application/json
+
+{
+  "status": "Ready"
+}
 
 ###
 GET http://localhost:3000/customers HTTP/1.1
@@ -192,8 +183,24 @@ GET http://localhost:3000/customers HTTP/1.1
 ###
 GET http://localhost:3000/customers/5f2f080f9dfcd4496c3f2794/orders HTTP/1.1
 
+####
+POST http://localhost:3000/customers/5f2f080f9dfcd4496c3f2794/orders HTTP/1.1
+Content-Type: application/json
+
+{
+  "oderdingDate": "08-08-2020",
+  "deliveryDate": "08-12-2020",
+  "farmerId": "5f2f0e5a3508017380fea569",
+  "productId": "5f2f14e137134d3e980faa34",
+  "status": "pending",
+  "price": 4.50,
+  "quantity": 25,
+  "totalPrice": 4.50,
+  "paidStatus": "pending"
+}
+
 ###
-GET http://localhost:3000/customers/5f2f080f9dfcd4496c3f2794/cart HTTP/1.1
+DELETE  http://localhost:3000/customers/5f2f080f9dfcd4496c3f2794/orders/5f3082cc4db3501a706a9bc5 HTTP/1.1
 
 ###
 GET http://localhost:3000/customers/5f2f080f9dfcd4496c3f2794/cart HTTP/1.1
@@ -213,6 +220,9 @@ Content-Type: application/json
   "totalPrice": 102.50,
   "paidStatus": "pending"
 }
+
+###
+DELETE http://localhost:3000/customers/5f2f080f9dfcd4496c3f2794/cart/5f3088620fed1720bc08682f HTTP/1.1
 
 ###
 POST http://localhost:3000/customers/5f2f080f9dfcd4496c3f2794/checkout HTTP/1.1
