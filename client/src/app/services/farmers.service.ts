@@ -24,18 +24,20 @@ export class FarmersService {
       return this.allProducts;
   }
   increaseProductQuantity(id) {
-    const link ="http://localhost:3000/farmers/"+localStorage.getItem('id')+"/products/inc/"+id;
+    const link ="http://localhost:3000/farmers/"+localStorage.getItem('id')+"/products/"+id+"/inc/";
     this.http.patch(link,id)
       .subscribe(res => {
+        this.getProducts();
         return res;
       }, err => {
         console.log(err)
       });
   }
   decreseProductQuantity(id) {
-    const link ="http://localhost:3000/farmers/"+localStorage.getItem('id')+"/products/dec/"+id;
+    const link ="http://localhost:3000/farmers/"+localStorage.getItem('id')+"/products/"+id+"/dec/";
     this.http.patch(link,id)
       .subscribe(res => {
+        this.getProducts();
         return res;
       }, err => {
         console.log(err)
@@ -74,9 +76,10 @@ export class FarmersService {
       });
       return this.allOrders;
   }
-  removeOrder(id) {
-    const link ="http://localhost:3000/farmers/"+localStorage.getItem('id')+"/order/"+id;
-    this.http.delete(link,id)
+
+  changeState(id, reqBody) {
+    const link ="http://localhost:3000/farmers/"+localStorage.getItem('id')+"/orders/"+id;
+    this.http.patch(link,reqBody)
       .subscribe(res => {
         return res;
       }, err => {

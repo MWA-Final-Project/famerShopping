@@ -10,13 +10,22 @@ export class CustmersFarmerProductsComponent implements OnInit {
   products;
 
   constructor(private Customers:CustmersService) { 
-    console.log(this.Customers.getSavedProducts());
     this.products = this.Customers.getSavedProducts();
-    
   }
 
   ngOnInit(): void {
+    this.Customers.products$.subscribe(res=>{
+      this.products = this.Customers.getSavedProducts();
+    })
     
+  }
+  addToCart(index){
+    const id = this.products[index]._id;
+    console.log(index, id)
+    this.Customers.addToCart(id)
+  }
+  checkOut(){
+    this.Customers.checkOut();
   }
 
 }
