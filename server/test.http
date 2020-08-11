@@ -4,8 +4,8 @@
 @productId = 5f2f14e137134d3e980faa34
 @farmerOrder1Id = 5f2f1adac47b413b70f54857
 @farmerOrder2Id = 5f30ed94144ed62fcc90d14f
-@customerId = 5f3051e9f006bd8205d2758c
-@customerOrderId = 0
+@customerId = 5f2f080f9dfcd4496c3f2794
+@customerOrderId = 5f3083702777901b8c6425b1
 @cartOrderId = 5f3088620fed1720bc08682f
 
 #### Signup a farmer
@@ -278,4 +278,5 @@ DELETE http://localhost:3000/customers/{{customerId}}/cart/{{cartOrderId}} HTTP/
 POST http://localhost:3000/customers/{{customerId}}/checkout HTTP/1.1
 
 ### Rating a farmer
-POST http://localhost:3000/customers/{{productId}}/rate/1 HTTP/1.1
+# POST http://localhost:3000/customers/{{productId}}/rate/1 HTTP/1.1
+POST http://localhost:3000/customers/{{customerId}}/orders/{{customerOrderId}}/rate/1 HTTP/1.1

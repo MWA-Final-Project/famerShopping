@@ -35,6 +35,7 @@ const Account = mongoose.model("custmer", {
     quantity: {type:Number, required: true},
     totalPrice: {type:Number, required: true},
     paidStatus: {type:String, required: true},
+    ratedStatus: {type:Boolean, required: true}
   }],
   cart: [
     {
@@ -47,6 +48,7 @@ const Account = mongoose.model("custmer", {
       quantity: {type:Number, required: true},
       totalPrice: {type:Number, required: true},
       paidStatus: {type:String, required: true},
+      ratedStatus: {type:Boolean, required: true}
     }
   ]
 });

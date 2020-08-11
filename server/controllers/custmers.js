@@ -36,7 +36,7 @@ module.exports.signin = async(req, res) => {
 
             res.status(200).json({ token: token, role: "custmer", id: custmerAccount._id, email: custmerAccount.email, fullName: custmerAccount.fullName, firstName: custmerAccount.fullName.firstName, lastName: custmerAccount.fullName.lastName });
         })
-        .catch(err => res.json({ message: err }));
+        .catch(err => res.status(400).json({ message: err }));
 }
 
 module.exports.signup = async(req, res) => {
@@ -73,20 +73,20 @@ module.exports.signup = async(req, res) => {
                 .save()
                 .then(_ => {
                     console.log(newCustmer);
-                    res.json({ message: "the custmer successfully created." });
+                    res.status(200).json({ message: "the custmer successfully created." });
                 })
                 .catch(err => {
                     console.log({ message: err });
-                    res.json({ message: err });
+                    res.status(400).json({ message: err });
                 });
         })
-        .catch(err => res.json({ message: err }));
+        .catch(err => res.status(400).json({ message: err }));
 }
 
 module.exports.getAllCustomers = async(req, res) => {
     await Custmer.find({}, { password: 0 })
-        .then(customers => res.json(customers))
-        .catch(err => res.json(err))
+        .then(customers => res.status(200).json(customers))
+        .catch(err => res.status(400).json(err))
 }
 
 module.exports.getAllOrders = async(req, res) => {
@@ -156,7 +156,8 @@ module.exports.addToCart = async(req, res) => {
                           "price": price,
                           "quantity": quantity,
                           "totalPrice": price * quantity,
-                          "paidStatus": "Pending"
+                          "paidStatus": "Pending",
+                          "ratedStatus": false
                         }
 
                         cart.push(order);
@@ -207,11 +208,29 @@ module.exports.cancelOrder = async(req, res) => {
 }
 
 module.exports.rateFarmer = async(req, res) => {
-  const productId = req.params.productId;
-  // const farmerId = req.params.farmerId;
-    const rating = parseInt(req.params.rating);
+  const customerId = req.params.custId;
+  const orderId = req.params.orderId;
+  const rating = parseInt(req.params.rating);
 
-    await Farmer.updateOne({ "products._id": productId }, { $inc: { rate: rating } })
-        .then(data => res.json({ message: "Farmer rated successfully." }))
-        .catch(err => res.json(err))
+  await Custmer.findOne({ _id: customerId})
+                .then(customer => {
+                  const orders = customer.orders;
+
+                  for(let i = 0; i < orders.length; i++){
+                    if(orders[i]._id == orderId){
+                      const farmerId = orders[i].farmerId;
+
+                      Farmer.updateOne({ _id: farmerId }, { $inc: { rate: rating } })
+                            .then(_ => {
+                              orders[i].ratedStatus = true;
+
+                              customer.save()
+                                  .then(_ => res.status(200).json({ message: "Farmer rated successfully." }))
+                                  .catch(err => res.status(400).json(err))
+                            })
+                            .catch(err => res.status(400).json(err));                        
+                    }
+                  }
+                })
+                .catch(err => res.status(400).json(err));
 }
