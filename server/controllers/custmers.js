@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 
 const config = require('./../config/config.json');
 const Custmer = require("../model/custmers");
+const Farmer = require("../model/farmers");
 
 var BCRYPT_SALT_ROUNDS = 12;
 
@@ -122,18 +123,54 @@ module.exports.getCustomerCart = async(req, res) => {
 
 module.exports.addToCart = async(req, res) => {
     const customerId = req.params.custId;
-    const order = req.body;
+    const productId = req.params.productId;
+    const quantity = 1; // req.params.quantity
 
-    await Custmer.findOne({ _id: customerId })
-        .then(customer => {
-            customer.cart.push(order);
+    await Farmer.findOne({ "products._id": productId})
+                .then(farmer => {
 
-            customer.save().then(_ => {
-                    res.json({ message: 'Order added to cart successfully.' });
+                  const farmerId = farmer._id;
+
+                  Custmer.findOne({ _id: customerId })
+                    .then(customer => {
+                      const cart = customer.cart;
+                      let exists = false;
+
+                      for(let i = 0; i < cart.length; i++){
+                        if(cart[i].productId == productId){
+                          exists = true;
+                          cart[i].quantity += quantity;
+                        }
+                      }
+
+                      if(!exists){
+                        const price = farmer.products.filter(prod => prod._id == productId).map(prod => prod.price)[0];
+
+                        console.log(price)
+                        const order = {
+                          "oderdingDate": Date(Date.now()),
+                          "deliveryDate": Date().toString(),
+                          "farmerId": farmerId,
+                          "productId": productId,
+                          "status": "Pending",
+                          "price": price,
+                          "quantity": quantity,
+                          "totalPrice": price * quantity,
+                          "paidStatus": "Pending"
+                        }
+
+                        cart.push(order);
+                      }
+                        
+
+                      customer.save().then(_ => {
+                              res.status(200).json({ message: 'Order added to cart successfully.' });
+                          })
+                          .catch(err => res.status(400).json(err))
+                    })
+                    .catch(err => res.status(400).json(err))
                 })
-                .catch(err => res.json(err))
-        })
-        .catch(err => res.json(err))
+                .catch(err => resp.status(200).json(err))    
 }
 
 module.exports.removeFromCart = async(req, res) => {
