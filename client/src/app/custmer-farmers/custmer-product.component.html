@@ -1,10 +1,10 @@
 <div class="album py-5 bg-light">
-    <div class="container" *ngFor="let product of  farmers; let i = index;" >
+    <div class="container" *ngFor="let farmer of  farmers; let i = index;" >
       <a (click)="getProducts(i)" [routerLink]="['','home','custmer','farmer-prducts']" *ngIf="!custmerStatus" class="btn btn-success my-2" >Products</a>
-      <p>{{product.fullName.firstName}} {{product.fullName.lastName}}</p>
-      <p>email: {{product.email}}</p>
-      <p>phone: {{product.phone}}</p>
-      <p>rate: {{product.rate}}</p>
+      <p>{{farmer.fullName.firstName}} {{farmer.fullName.lastName}}</p>
+      <p>email: {{farmer.email}}</p>
+      <p>phone: {{farmer.phone}}</p>
+      <p>rate: {{farmer.rate}}</p>
       <br>
     </div>
 </div>
