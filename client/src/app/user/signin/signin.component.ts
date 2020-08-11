@@ -32,27 +32,29 @@ export class SigninComponent implements OnInit {
       ],
       password: ["", Validators.required]
     });
-    console.log("Sign up page loaded");
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+  }
+
 
   onSubmit() {
     if(this.radioService.getRadio()==2){
-      console.log(this.radioService.getRadio());
-      this.baseUrl = "http://localhost:3000/custmers"
+      this.baseUrl = "http://localhost:3000/customers"
     }
     const account = {
       email: this.signinForm.value.email,
       password: this.signinForm.value.password
     };
+   
     this.isLoading = true;
 
     const response = this.authService.signIn(account, this.baseUrl);
-
+    
+    this.error = this.authService.getErrorMessage();
     if (response) {
       this.isLoading = false;
-      console.log(response);
     } else {
       this.error = response;
       this.isLoading = false;

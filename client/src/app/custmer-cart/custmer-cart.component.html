@@ -1,0 +1,37 @@
+
+<!-- <mat-form-field appearance="fill" >
+    <mat-label>Sort By</mat-label>
+    <mat-select  required  (selectionChange)="changeStatus($event, i)">
+      <mat-option value="pending">Pending</mat-option>
+      <mat-option value="ready">Ready</mat-option>
+      <mat-option value="complete">Complete</mat-option>
+    </mat-select>
+</mat-form-field> -->
+<div class="btn-group">
+    <button type="button" (click)="checkOut()" class="btn btn-sm btn-outline-success">checkout</button>
+  </div>
+<div class="album py-5 bg-light" >
+    <div class="container" *ngFor="let order of cart; let i = index;">
+      <div class="row" >
+        <div class="col-md-4">
+          <div class="card mb-4 box-shadow">
+            <div class="card-body">
+              <p>Order Date: {{order.oderdingDate}}</p>
+              <p class="card-text">Delivery Date: {{order.deliveryDate}}</p>
+              <p class="card-text">Quantity: {{order.quantity}}</p>
+              <p class="card-text">Unit Price: {{order.price}}</p>
+              <p class="card-text">Total Price: {{order.totalPrice}}</p>
+              
+              <button (click)="increaseQuantity(i)">inc</button>
+              <small class="text-muted">{{order.quantity}}</small>
+              <button (click)="decreaseQuantity(i)">dec</button>
+             
+              <div class="btn-group">
+                <button type="button" (click)="remove(i)" class="btn btn-sm btn-outline-success">cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -8,6 +8,9 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatButtonModule } from "@angular/material/button";
 import { MatChipsModule } from "@angular/material/chips";
 import {MatRadioModule} from '@angular/material/radio';
+import {MatSelectModule} from '@angular/material/select';
+import {MatIconModule} from '@angular/material/icon';
+
 
 
 @NgModule({
@@ -21,7 +24,9 @@ import {MatRadioModule} from '@angular/material/radio';
     MatFormFieldModule,
     MatCardModule,
     MatChipsModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSelectModule,
+    MatIconModule
   ],
   exports: [
     MatToolbarModule,
@@ -31,7 +36,9 @@ import {MatRadioModule} from '@angular/material/radio';
     MatFormFieldModule,
     MatCardModule,
     MatChipsModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSelectModule,
+    MatIconModule
   ]
 })
 export class MaterialModule {}

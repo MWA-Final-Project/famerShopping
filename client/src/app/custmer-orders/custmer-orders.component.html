@@ -1,0 +1,38 @@
+<mat-form-field appearance="fill" >
+  <mat-label>Sort By</mat-label>
+  <mat-select  (selectionChange)="sortBy($event)">
+    <mat-option value="pending">Pending</mat-option>
+    <mat-option value="ready">Ready</mat-option>
+    <mat-option value="complete">Complete</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<div class="album py-5 bg-light" >
+    <div class="container" *ngFor="let order of orders; let i = index;">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card mb-4 box-shadow">
+            <div class="card-body">
+              <p>Order Date: {{order.oderdingDate}}</p>
+              <p class="card-text">Delivery Date: {{order.deliveryDate}}</p>
+              <p class="card-text">Quantity: {{order.quantity}}</p>
+              <p class="card-text">Unit Price: {{order.price}}</p>
+              <p class="card-text">Total Price: {{order.totalPrice}}</p>
+              <p>quantity: {{order.quantity}}</p>
+              <p>status: {{order.status}}</p>
+              <div class="btn-group">
+                <button type="button" (click)="cancelOrder(i)" class="btn btn-sm btn-outline-success">cancel</button>
+              </div>
+              <div>
+                <mat-radio-group *ngIf="!order.ratedStatus" (change)="radioChange($event, i)"  aria-label="Select an option">
+                    <mat-radio-button value="-1">Bad</mat-radio-button>
+                    <mat-radio-button  value="0">Fair</mat-radio-button>
+                    <mat-radio-button  value="1">Excelent</mat-radio-button>
+                </mat-radio-group>
+               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

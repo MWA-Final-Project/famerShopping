@@ -35,7 +35,22 @@ const Account = mongoose.model("custmer", {
     quantity: {type:Number, required: true},
     totalPrice: {type:Number, required: true},
     paidStatus: {type:String, required: true},
-  }]
+    ratedStatus: {type:Boolean, required: true}
+  }],
+  cart: [
+    {
+      oderdingDate: {type:String, required: true},
+      deliveryDate: {type:String, required: true},
+      farmerId: {type:String, required: true},
+      productId: {type:String, required: true},
+      status: {type:String, required: true},
+      price: {type:Number, required: true},
+      quantity: {type:Number, required: true},
+      totalPrice: {type:Number, required: true},
+      paidStatus: {type:String, required: true},
+      ratedStatus: {type:Boolean, required: true}
+    }
+  ]
 });
 
 module.exports = Account;
