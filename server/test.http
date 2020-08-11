@@ -284,9 +284,19 @@ POST http://localhost:3000/customers/{{customerId}}/orders/{{customerOrderId}}/r
 
 ### Increase quantity of order in shopping cart
 PATCH http://localhost:3000/customers/{{customerId}}/cart/orders/{{cartOrderId}}/inc HTTP/1.1
+Content-Type: application/json
+
+{
+  "price": 10
+}
 
 ### Decrease quantity of order in shopping cart
 PATCH http://localhost:3000/customers/{{customerId}}/cart/orders/{{cartOrderId}}/dec HTTP/1.1
+Content-Type: application/json
+
+{
+  "price": 10
+}
 
 ### Get customer's shoping cart
 GET http://localhost:3000/customers/{{customerId}}/cart HTTP/1.1

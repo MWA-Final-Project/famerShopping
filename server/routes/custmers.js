@@ -29,10 +29,10 @@ router.post("/:custId/orders", addOrder);
 router.patch("/:custId/cart/:productId", addToCart);
 
 // Increase the quantity of an order in a shopping cart
-router.patch("/:custId/cart/orders/:orderId/inc", incCartOrderQuantity);
+router.patch("/:custId/cart/orders/:orderId/inc/", incCartOrderQuantity);
 
 // Decrease the quantity of an order in a shopping cart
-router.patch("/:custId/cart/orders/:orderId/dec", decCartOrderQuantity);
+router.patch("/:custId/cart/orders/:orderId/dec/", decCartOrderQuantity);
 
 // Remove order from shopping cart
 router.delete("/:custId/cart/:orderId", removeFromCart);
