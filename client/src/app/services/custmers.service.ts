@@ -130,9 +130,9 @@ export class CustmersService {
       return "canceled your order";
   }
 
-  increaseProductQuantity(id) {
-    const link =this.baseCustmersURL+localStorage.getItem('id')+"/products/"+id+"/inc/";
-    this.http.patch(link,id)
+  increaseOrdersQuantity(id) {
+    const link =this.baseCustmersURL+localStorage.getItem('id')+"/cart/orders/"+id+"/inc";
+    this.http.patch(link,{})
       .subscribe(res => {
         this.getCart();
         return res;
@@ -140,9 +140,9 @@ export class CustmersService {
         console.log(err)
       });
   }
-  decreseProductQuantity(id) {
-    const link =this.baseCustmersURL+localStorage.getItem('id')+"/products/"+id+"/dec/";
-    this.http.patch(link,id)
+  decreseOrdersQuantity(id) {
+    const link =this.baseCustmersURL+localStorage.getItem('id')+"/cart/orders/"+id+"/dec";
+    this.http.patch(link,{})
       .subscribe(res => {
         this.getCart();
         return res;
@@ -160,7 +160,7 @@ export class CustmersService {
       });
   }
   rateOrder(orderId, rateValue){
-    const link =this.baseCustmersURL+localStorage.getItem('id')+"/"+orderId+"/rate/"+rateValue;
+    const link =this.baseCustmersURL+localStorage.getItem('id')+"/orders/"+orderId+"/rate/"+rateValue;
     this.http.post(link,{})
       .subscribe(res => {
         this.getOrders();

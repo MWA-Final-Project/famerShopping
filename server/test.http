@@ -2,9 +2,9 @@
 @farmer1Id = 5f2f08739dfcd4496c3f2796
 @farmer2Id = 5f2f0e5a3508017380fea569
 @productId = 5f2f14e137134d3e980faa34
-@farmerOrder1Id = 5f2f1adac47b413b70f54857
+@farmerOrder1Id = 5f3253144dd9038a8cf7b2e4
 @farmerOrder2Id = 5f30ed94144ed62fcc90d14f
-@customerId = 5f2f080f9dfcd4496c3f2794
+@customerId = 5f3253144dd9038a8cf7b2e4
 @customerOrderId = 5f3083702777901b8c6425b1
 @cartOrderId = 5f321287eacf393f7c36ab1b
 
@@ -187,7 +187,8 @@ Content-Type: application/json
     "price": 4.50,
     "quantity": 25,
     "totalPrice": 4.50,
-    "paidStatus": "pending"
+    "paidStatus": "pending",
+    "ratedStatus":false
   }
 
 #### Get all orders [should be sorted by ... Date descending?]

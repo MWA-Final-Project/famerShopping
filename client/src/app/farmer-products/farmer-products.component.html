@@ -1,8 +1,7 @@
 <form [formGroup]="proudctForm"  (ngSubmit)="onSubmit()">
   <div class="form-container">
     <mat-card>
-      <h3>add new product</h3>
-      
+      <h3 class="box">add new product</h3>
       <mat-form-field class="controls">
         <input matInput type="text" name="name" placeholder="name" [formControl]="proudctForm.get('name')"/></mat-form-field>
       <mat-form-field class="controls">
@@ -17,7 +16,6 @@
       <mat-form-field class="controls">
         <input matInput type="number" min="1" name="quantity" placeholder="quantity" [formControl]="proudctForm.get('quantity')" />
       </mat-form-field>
- 
       <input type="file" name="avatar" #avatarFile />
       <button mat-raised-button color="primary" type="submit" [disabled]="!proudctForm.valid">
         create
@@ -25,29 +23,30 @@
     </mat-card>
   </div>
 </form>
+<div class="flex-width album py-5 bg-light  ">
 
-<div class="album py-5 bg-light">
-  <div class="container" *ngFor="let product of products; let i = index;">
-    <div class="row">
-      <div class="col-md-4">
-        <div class="card mb-4 box-shadow">
+    <div class="box-shadow" *ngFor="let product of products; let i = index;">
+      <div class="">
+        <div class="card mb-4 ">
           <img class="card-img-top" data-src={{product.pic}} alt="product image">
-          <p>{{product.name}}</p>
+          
           <div class="card-body">
-            <p class="card-text">description {{product.description}}</p>
+            <p>{{product.name}}</p>
+            <p class="card-text">Description: {{product.description}}</p>
             <p class="card-text"></p>
-            <p class="card-text">price {{product.price}}</p>
+            <p class="card-text">Price: {{product.price}}</p>
             <div class="d-flex justify-content-between align-items-center">
               <div class="btn-group">
-                <button type="button" (click)="deleteProduct(i)" class="btn btn-sm btn-outline-success">remove</button>
+                <button type="button" (click)="deleteProduct(i)" mat-raised-button color="accent"><mat-icon>error</mat-icon> remove</button>
               </div>
-              <button (click)="increaseQuantity(i)">inc</button>
-              <small class="text-muted">{{product.quantity}} in stock</small>
-              <button (click)="decreaseQuantity(i)">dec</button>
+              <button mat-raised-button  (click)="decreaseQuantity(i)"><mat-icon>exposure_neg_1</mat-icon></button>
+                <small class="text-muted">{{product.quantity}} in stock</small>
+              <button mat-raised-button  (click)="increaseQuantity(i)"><mat-icon>exposure_plus_1</mat-icon></button>
             </div>
-          </div>
-        </div>
+         
+        
       </div>
     </div>
   </div>
+</div>
 </div>
