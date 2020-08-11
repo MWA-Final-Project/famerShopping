@@ -10,12 +10,21 @@ import { RadioChangeService } from '../services/radio-change.service';
 })
 export class HeaderComponent implements OnInit {
   user;
+  
+  logedInUser=localStorage.getItem('role');
+  custmerStatus= false;
   constructor(private authServices:AuthService, private router:Router, private radioService: RadioChangeService){} 
 
 
 
   ngOnInit(): void {
     this.user = `${localStorage.getItem('firstName')} ${localStorage.getItem('lastName')}`;
+    {
+      if(localStorage.getItem('role')=="custmer"){
+        this.custmerStatus = true;
+      }
+      
+    }
   }
 
   logout(){
