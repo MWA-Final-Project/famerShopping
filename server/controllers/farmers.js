@@ -93,7 +93,7 @@ module.exports.getAllFarmers = async(req, res) => {
 module.exports.getFarmerById = async(req, res) => {
     const farmerId = req.params.farmerId;
 
-    await Farmer.findOne({ _id: farmerId })
+    await Farmer.findOne({ _id: farmerId }, { password: 0})
         .then(data => res.json(data))
         .catch(err => res.json(err))
 }
