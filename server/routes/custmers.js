@@ -3,8 +3,8 @@ const express = require("express");
 const router = express.Router();
 
 const { signin, signup, getAllOrders, getAllCustomers, getCustomerCart, addToCart, 
-    removeFromCart, addOrder, checkout, cancelOrder, getAllOrdersByStatus, rateFarmer } = 
-    require("./../controllers/custmers")
+    removeFromCart, addOrder, checkout, cancelOrder, rateFarmer, incCartOrderQuantity,
+    decCartOrderQuantity } = require("./../controllers/custmers")
 
 router.post("/signin", signin);
 
@@ -28,8 +28,11 @@ router.post("/:custId/orders", addOrder);
 // Add order to shopping cart
 router.patch("/:custId/cart/:productId", addToCart);
 
-// // Add order to shopping cart
-// router.post("/:custId/cart/orders/:orderId", incCartOrderQuantity);
+// Increase the quantity of an order in a shopping cart
+router.patch("/:custId/cart/orders/:orderId/inc", incCartOrderQuantity);
+
+// Decrease the quantity of an order in a shopping cart
+router.patch("/:custId/cart/orders/:orderId/dec", decCartOrderQuantity);
 
 // Remove order from shopping cart
 router.delete("/:custId/cart/:orderId", removeFromCart);
