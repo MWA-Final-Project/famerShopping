@@ -41,6 +41,6 @@ router.post("/:custId/checkout", checkout);
 router.delete("/:custId/orders/:orderId", cancelOrder);
 
 // Rate a farmer
-router.post("/:productId/rate/:rating", rateFarmer);
+router.post("/:custId/orders/:orderId/rate/:rating", rateFarmer);
 
 module.exports = router;
