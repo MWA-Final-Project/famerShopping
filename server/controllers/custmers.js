@@ -205,3 +205,13 @@ module.exports.cancelOrder = async(req, res) => {
         .then(_ => res.json({ message: "Order removed successfully." }))
         .catch(err => res.json(err))
 }
+
+module.exports.rateFarmer = async(req, res) => {
+  const productId = req.params.productId;
+  // const farmerId = req.params.farmerId;
+    const rating = parseInt(req.params.rating);
+
+    await Farmer.updateOne({ "products._id": productId }, { $inc: { rate: rating } })
+        .then(data => res.json({ message: "Farmer rated successfully." }))
+        .catch(err => res.json(err))
+}
