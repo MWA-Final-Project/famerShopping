@@ -121,14 +121,15 @@ GET http://localhost:3000/farmers/{{farmer1Id}} HTTP/1.1
 #### Get a farmer by Id
 GET http://localhost:3000/farmers/{{farmer2Id}} HTTP/1.1
 
-#### Rating a farmer - Excellent
-POST http://localhost:3000/farmers/{{farmer2Id}}/rate/Excellent HTTP/1.1
+### For testing purposes only
+# #### Rating a farmer - Excellent
+# POST http://localhost:3000/farmers/{{farmer2Id}}/rate/Excellent HTTP/1.1
 
-#### Rating a farmer - Good
-POST http://localhost:3000/farmers/{{farmer2Id}}/rate/Good HTTP/1.1
+# #### Rating a farmer - Good
+# POST http://localhost:3000/farmers/{{farmer2Id}}/rate/Good HTTP/1.1
 
-#### Rating a farmer - Bad
-POST http://localhost:3000/farmers/{{farmer2Id}}/rate/Bad HTTP/1.1
+# #### Rating a farmer - Bad
+# POST http://localhost:3000/farmers/{{farmer2Id}}/rate/Bad HTTP/1.1
 
 #### Add a product
 POST http://localhost:3000/farmers/{{farmer2Id}}/products HTTP/1.1
@@ -262,7 +263,7 @@ Content-Type: application/json
 # PATCH http://localhost:3000/customers/{{customerId}}/cart/{{cartOrderId}} HTTP/1.1
 
 ### Adding a product to order
-PATCH http://localhost:3000/customers/{{customerId}}/cart/{productId} HTTP/1.1
+PATCH http://localhost:3000/customers/{{customerId}}/cart/{{productId}} HTTP/1.1
 
 # ### 
 # PATCH http://localhost:3000/customers/{{customerId}}/cart/5f3211124ae918374ce50d2a HTTP/1.1
@@ -273,5 +274,8 @@ PATCH http://localhost:3000/customers/{{customerId}}/cart/{{cartOrderId}} HTTP/1
 ### 
 DELETE http://localhost:3000/customers/{{customerId}}/cart/{{cartOrderId}} HTTP/1.1
 
-###
+### Checkout
 POST http://localhost:3000/customers/{{customerId}}/checkout HTTP/1.1
+
+### Rating a farmer
+POST http://localhost:3000/customers/{{productId}}/rate/1 HTTP/1.1
