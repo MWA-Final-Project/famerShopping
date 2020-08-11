@@ -18,7 +18,6 @@ export class FarmerOrderssComponent implements OnInit {
       });
   }
   deleteOrder(index){
-    console.log(this.orders[index]._id)
     const id = this.orders[index]._id
     this.Farmers.removeProduct(id);
   }

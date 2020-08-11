@@ -37,17 +37,14 @@ export class FarmerProductsComponent implements OnInit {
       });
   }
   increaseQuantity(index){
-    console.log(this.products[index]._id)
     const id = this.products[index]._id
     this.Farmers.increaseProductQuantity(id);
   }
   decreaseQuantity(index){
-    console.log(this.products[index]._id)
     const id = this.products[index]._id
     this.Farmers.decreseProductQuantity(id);
   }
   deleteProduct(index){
-    console.log(this.products[index]._id)
     const id = this.products[index]._id
     this.Farmers.removeProduct(id);
   }
@@ -61,7 +58,6 @@ export class FarmerProductsComponent implements OnInit {
       quantity: this.proudctForm.value.quantity,
       pushing_date: this.currentDate
     };
-    console.log(product)
     this.Farmers.addProduct(product);
   
    

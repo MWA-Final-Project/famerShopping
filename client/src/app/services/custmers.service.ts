@@ -85,8 +85,8 @@ export class CustmersService {
   }
   
   addToCart(id){
-    const link =this.baseCustmersURL+localStorage.getItem('id')+"/cart"
-    this.http.post(link, id)
+    const link =this.baseCustmersURL+localStorage.getItem('id')+"/cart/"+id
+    this.http.patch(link, id)
       .subscribe(res => {
       }, err => {
         console.log(err)
@@ -154,6 +154,26 @@ export class CustmersService {
     const link =this.baseCustmersURL+localStorage.getItem('id')+"/orders/"+id;
     this.http.patch(link,reqBody)
       .subscribe(res => {
+        return res;
+      }, err => {
+        console.log(err)
+      });
+  }
+  rateOrder(orderId, rateValue){
+    const link =this.baseCustmersURL+localStorage.getItem('id')+"/"+orderId+"/rate/"+rateValue;
+    this.http.post(link,{})
+      .subscribe(res => {
+        this.getOrders();
+        return res;
+      }, err => {
+        console.log(err)
+      });
+  }
+  SortedOrders(status){
+    const link =this.baseCustmersURL+localStorage.getItem('id')+"/orders/"+status;
+    this.http.get(link,{})
+      .subscribe(res => {
+        this.getOrders();
         return res;
       }, err => {
         console.log(err)

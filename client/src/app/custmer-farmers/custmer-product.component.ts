@@ -21,7 +21,6 @@ export class CustmerFarmerComponent implements OnInit {
     });
   }
   getProducts(index){
-    console.log(this.farmers[index]._id)
     const id = this.farmers[index]._id
     this.Customers.getProducts(id);
   }
