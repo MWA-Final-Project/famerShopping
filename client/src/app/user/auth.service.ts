@@ -35,7 +35,6 @@ export class AuthService {
               firstName:string,
               lastName: string }>(baseUrl + "/signin", account)
       .subscribe(response => {
-        console.log(response)
         const token = response.token;
         localStorage.setItem('token',response.token)
         localStorage.setItem('id',response.id)
@@ -47,13 +46,12 @@ export class AuthService {
         
         this.responseMessage = response;
         if(response.role == "farmer"){
-          this.router.navigate(["/home/farmer"])
+          this.router.navigate(["home","farmer"])
         }else{
-          this.router.navigate(["/home/custmer"])
+          this.router.navigate(["home","custmer"])
         }
       }, err => {
-        this.errorMessage = err.error.message
-        console.log(err.error.message)
+        this.errorMessage = err.error.message;
         return err.error.message
       });
 
@@ -61,12 +59,10 @@ export class AuthService {
   }
   signUp(account, baseUrl) {
     this.http.post(baseUrl + "/signup", account).subscribe(response => {
-      console.log(response);
       this.responseMessage = response;
       this.router.navigate(["/signin"])
     }, err => {
       this.errorMessage = err.error.message
-      console.log(err.error.message)
     });
     return this.responseMessage;
   }

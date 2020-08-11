@@ -10,7 +10,6 @@ export class CustmerCartComponent implements OnInit {
   cart;
  
   constructor(private Customers:CustmersService) { 
-    console.log(this.Customers.getCart())
     this.Customers.getCart();
   }
 
@@ -20,21 +19,17 @@ export class CustmerCartComponent implements OnInit {
   });
   }
   checkOut(){
-    console.log("checked out")
     this.Customers.checkOut();
   }
   remove(index){
     const id = this.cart[index]._id;
-    console.log(index, id)
     this.Customers.removeFromCart(id);
   }
   increaseQuantity(index){
-    console.log(this.cart[index]._id)
     const id = this.cart[index]._id
     this.Customers.increaseProductQuantity(id);
   }
   decreaseQuantity(index){
-    console.log(this.cart[index]._id)
     const id = this.cart[index]._id
     this.Customers.decreseProductQuantity(id);
   }

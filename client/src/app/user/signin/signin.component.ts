@@ -41,7 +41,6 @@ export class SigninComponent implements OnInit {
 
   onSubmit() {
     if(this.radioService.getRadio()==2){
-      console.log("radio value"+this.radioService.getRadio());
       this.baseUrl = "http://localhost:3000/customers"
     }
     const account = {
@@ -56,12 +55,9 @@ export class SigninComponent implements OnInit {
     this.error = this.authService.getErrorMessage();
     if (response) {
       this.isLoading = false;
-      console.log(response);
     } else {
-      console.log(response);
       this.error = response;
       this.isLoading = false;
     }
-    console.log(this.authService.getErrorMessage())
   }
 }

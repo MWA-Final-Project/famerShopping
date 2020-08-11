@@ -19,9 +19,8 @@ export class CustmersFarmerProductsComponent implements OnInit {
     })
     
   }
-  addToCart(index){
+  addProductToCart(index){
     const id = this.products[index]._id;
-    console.log(index, id)
     this.Customers.addToCart(id)
   }
   checkOut(){

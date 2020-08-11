@@ -38,7 +38,6 @@ export class SignupComponent implements OnInit {
       zipcode: ["", Validators.required],
       phone: ["", Validators.required]
     });
-    console.log("Sign up page loaded");
   }
 
  
@@ -47,7 +46,6 @@ export class SignupComponent implements OnInit {
 
   onSubmit() {
     if(this.radioService.getRadio()==2){
-      console.log(this.radioService.getRadio());
       this.baseUrl = "http://localhost:3000/custmers"
     }
     this.isLoading = true;
@@ -65,7 +63,6 @@ export class SignupComponent implements OnInit {
 
     if (response) {
       this.isLoading = false;
-      console.log(response);
     } else {
       this.error = response;
       this.isLoading = false;
