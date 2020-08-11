@@ -6,7 +6,7 @@
 @farmerOrder2Id = 5f30ed94144ed62fcc90d14f
 @customerId = 5f2f080f9dfcd4496c3f2794
 @customerOrderId = 5f3083702777901b8c6425b1
-@cartOrderId = 5f3088620fed1720bc08682f
+@cartOrderId = 5f321287eacf393f7c36ab1b
 
 #### Signup a farmer
 POST http://localhost:3000/account/signup HTTP/1.1
@@ -280,3 +280,12 @@ POST http://localhost:3000/customers/{{customerId}}/checkout HTTP/1.1
 ### Rating a farmer
 # POST http://localhost:3000/customers/{{productId}}/rate/1 HTTP/1.1
 POST http://localhost:3000/customers/{{customerId}}/orders/{{customerOrderId}}/rate/1 HTTP/1.1
+
+### Increase quantity of order in shopping cart
+PATCH http://localhost:3000/customers/{{customerId}}/cart/orders/{{cartOrderId}}/inc HTTP/1.1
+
+### Decrease quantity of order in shopping cart
+PATCH http://localhost:3000/customers/{{customerId}}/cart/orders/{{cartOrderId}}/dec HTTP/1.1
+
+### Get customer's shoping cart
+GET http://localhost:3000/customers/{{customerId}}/cart HTTP/1.1
