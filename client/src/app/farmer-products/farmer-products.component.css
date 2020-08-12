@@ -2,11 +2,11 @@ mat-form-field{
     margin: 20px;
 }
 .box{
-    background: #28a744;
+    
     width: 170px;
     padding: 20px;
-    box-shadow: 10px 10px 5px grey;
-    color: white;
+    box-shadow: 2px 2px 2px grey;
+    
 }
 
 .box-shadow{

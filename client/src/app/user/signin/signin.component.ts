@@ -49,14 +49,14 @@ export class SigninComponent implements OnInit {
     };
    
     this.isLoading = true;
-
-    const response = this.authService.signIn(account, this.baseUrl);
     
-    if (response == "Authentication failed") {
-      this.error = response;
+    this.authService.signIn(account, this.baseUrl).then(response=>{
       this.isLoading = false;
-    } else {
+    }).catch(err=>{
+      this.error = err;
       this.isLoading = false;
-    }
+    });
+    
+    
   }
 }
