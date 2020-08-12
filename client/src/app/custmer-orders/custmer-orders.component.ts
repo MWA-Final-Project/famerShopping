@@ -9,9 +9,10 @@ import { MatRadioChange } from '@angular/material/radio';
 })
 export class CustmerOrdersComponent implements OnInit {
   orders;
-  complete = "complete";
+  complete = "Complete";
   radioOrderId;
   rate;
+  
 
   constructor(private Customers: CustmersService) {
     this.Customers.getOrders();
@@ -29,11 +30,9 @@ export class CustmerOrdersComponent implements OnInit {
   radioChange(event: MatRadioChange, index) {
     this.radioOrderId = this.orders[index]._id;
     this.rate = event.value;
-    console.log(this.radioOrderId, this.rate);
     this.Customers.rateOrder(this.radioOrderId, this.rate);
   }
   sortBy(event){
-    console.log(event.value);
     this.Customers.SortedOrders(event.value);
   }
 

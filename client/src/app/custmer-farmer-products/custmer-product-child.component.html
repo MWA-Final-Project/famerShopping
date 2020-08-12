@@ -1,24 +1,18 @@
-<p>hello</p>
-<div class="album py-5 bg-light">
-    <div class="container" *ngFor="let product of products; let i = index;">
-      <div class="row">
-        <div class="col-md-4">
-          <div class="card mb-4 box-shadow">
+<div *ngFor="let product of products; let i = index;">
+    <div class="box-shadow card-width" >
+          <div class="card mb-4" *ngIf="product.quantity>=1">
             <img class="card-img-top" data-src={{product.pic}} alt="product image">
-            <p>{{product.name}}</p>
+            
             <div class="card-body">
+              <p class="card-text">{{product.name}}</p>
               <p class="card-text">description {{product.description}}</p>
               <p class="card-text"></p>
               <p class="card-text">price {{product.price}}</p>
+              <small class="text-muted">{{product.quantity}} in stock</small>
               <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" (click)="addProductToCart(i)" class="btn btn-sm btn-outline-success">add to cart</button>
-                </div>
-                <small class="text-muted">{{product.quantity}} in stock</small>
+                  <button mat-raised-button type="button" (click)="addProductToCart(i)"><mat-icon>add_shopping_cart</mat-icon>add to cart</button>
               </div>
             </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>

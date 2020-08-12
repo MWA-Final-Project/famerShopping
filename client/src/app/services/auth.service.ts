@@ -25,7 +25,9 @@ export class AuthService {
   clearStorage(){
     localStorage.clear();
   }
-
+ 
+  
+ 
   signIn(account,baseUrl) {
     this.http
       .post<{ token: string, 
@@ -51,8 +53,7 @@ export class AuthService {
           this.router.navigate(["home","custmer"])
         }
       }, err => {
-        this.errorMessage = err.error.message;
-        return err.error.message
+        this.responseMessage = err.error.message;
       });
 
     return this.responseMessage;
@@ -62,7 +63,7 @@ export class AuthService {
       this.responseMessage = response;
       this.router.navigate(["/signin"])
     }, err => {
-      this.errorMessage = err.error.message
+      this.responseMessage = err.error.message.name
     });
     return this.responseMessage;
   }

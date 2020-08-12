@@ -16,6 +16,13 @@
     padding: 15px;
 }
 button{
-    padding: 5px 20px;
+    padding: 30px 40px;
+    margin: 5px 15px;
+    background-color: #28a744 !important;
+}
+
+.signout-but{
+    background-color: white !important;
+    padding: 5px 40px;
     margin: 5px 15px;
 }
