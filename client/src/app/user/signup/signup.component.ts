@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { AuthService } from "../auth.service";
+import { AuthService } from "../../services/auth.service";
 import { RadioChangeService } from './../../services/radio-change.service'
 
 @Component({
@@ -38,7 +38,6 @@ export class SignupComponent implements OnInit {
       zipcode: ["", Validators.required],
       phone: ["", Validators.required]
     });
-    console.log("Sign up page loaded");
   }
 
  
@@ -47,7 +46,6 @@ export class SignupComponent implements OnInit {
 
   onSubmit() {
     if(this.radioService.getRadio()==2){
-      console.log(this.radioService.getRadio());
       this.baseUrl = "http://localhost:3000/custmers"
     }
     this.isLoading = true;
@@ -61,13 +59,12 @@ export class SignupComponent implements OnInit {
 
     this.isLoading = true;
     const response = this.authService.signUp(account, this.baseUrl);
-   
 
-    if (response) {
-      this.isLoading = false;
-      console.log(response);
-    } else {
+    if (response=="MongoError") {
       this.error = response;
+      this.isLoading = false;
+      
+    } else {
       this.isLoading = false;
     }
   }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CustmersService } from './../services/custmers.service'
 
 @Component({
   selector: 'app-custmer-cart',
@@ -6,10 +7,34 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./custmer-cart.component.css']
 })
 export class CustmerCartComponent implements OnInit {
-
-  constructor() { }
+  cart;
+ 
+  constructor(private Customers:CustmersService) { 
+    this.Customers.getCart();
+  }
 
   ngOnInit(): void {
+    this.Customers.cart$.subscribe(cart => {
+      this.cart = cart;
+  });
+  }
+  checkOut(){
+    this.Customers.checkOut();
+  }
+  remove(index){
+    const id = this.cart[index]._id;
+    this.Customers.removeFromCart(id);
+  }
+  increaseQuantity(index){
+    const id = this.cart[index]._id;
+    const price = {"price":this.cart[index].price};
+    this.Customers.increaseOrdersQuantity(id, price);
+    
+  }
+  decreaseQuantity(index){
+    const id = this.cart[index]._id;
+    const price = {"price":this.cart[index].price};
+    this.Customers.decreseOrdersQuantity(id, price);
   }
 
 }

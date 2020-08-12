@@ -1,1 +1,37 @@
+<mat-form-field appearance="fill" class="float-right margin-field" color="accent">
+  <mat-label>Sort By</mat-label>
+  <mat-select  (selectionChange)="sortBy($event)">
+    <mat-option value="pending">Pending</mat-option>
+    <mat-option value="ready">Ready</mat-option>
+    <mat-option value="complete">Complete</mat-option>
+  </mat-select>
+</mat-form-field>
 
+<div class="album py-5 bg-light flex-width" >
+    <div class="box-shadow card-width" *ngFor="let order of orders; let i = index;">
+      
+          <div class="card mb-4">
+            <div class="card-body">
+              <p>Order Date: {{order.oderdingDate}}</p>
+              <p class="card-text">Delivery Date: {{order.deliveryDate}}</p>
+              <p class="card-text">Quantity: {{order.quantity}}</p>
+              <p class="card-text">Unit Price: {{order.price}}</p>
+              <p class="card-text">Total Price: {{order.totalPrice}}</p>
+              <p>quantity: {{order.quantity}}</p>
+              <p>status: {{order.status}}</p>
+              
+                
+              
+              <div>
+                <mat-radio-group *ngIf="!order.ratedStatus && order.status ==complete" (change)="radioChange($event, i)"  aria-label="Select an option">
+                    <mat-radio-button value="-1">Bad</mat-radio-button>
+                    <mat-radio-button  value="0">Fair</mat-radio-button>
+                    <mat-radio-button  value="1">Excelent</mat-radio-button>
+                </mat-radio-group>
+               </div>
+               <button mat-raised-button type="button" [disabled]="order.status == complete" (click)="cancelOrder(i)" class="margin-field"><mat-icon>cancel_presentation</mat-icon> cancel</button>
+         
+        </div>
+      </div>
+    </div>
+  </div>

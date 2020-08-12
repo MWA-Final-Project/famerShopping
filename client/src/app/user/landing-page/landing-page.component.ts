@@ -7,7 +7,7 @@ import { MatRadioChange } from '@angular/material/radio';
   styleUrls: ['./landing-page.component.css']
 })
 export class LandingPageComponent implements OnInit {
-
+  signedInButton = false;
   constructor(private radioService: RadioChangeService) {
     
    }
@@ -22,5 +22,12 @@ export class LandingPageComponent implements OnInit {
   
   ngOnInit(): void {
   }
+  signInBut(){
+    this.signedInButton = false;
+  }
+  signUpBut(){
+    this.signedInButton = true;
+  }
+
 
 }

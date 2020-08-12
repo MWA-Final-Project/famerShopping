@@ -1,1 +1,27 @@
-<p>custmer-cart works!</p>
+
+
+    <button type="button" (click)="checkOut()" class="float-right margin-field checkout-but" color="primary" mat-raised-button>checkout<mat-icon>add_task</mat-icon></button>
+
+<div class="album py-5 bg-light flex-width" >
+    <div class="box-shadow card-width" *ngFor="let order of cart; let i = index;">
+  
+          <div class="card mb-4">
+            <div class="card-body">
+              <p>Order Date: {{order.oderdingDate}}</p>
+              <p class="card-text">Delivery Date: {{order.deliveryDate}}</p>
+              <p class="card-text">Quantity: {{order.quantity}}</p>
+              <p class="card-text">Unit Price: {{order.price}}</p>
+              <p class="card-text">Total Price: {{order.totalPrice}}</p>
+              
+              <button mat-raised-button (click)="increaseQuantity(i)"> <mat-icon>exposure_plus_1</mat-icon></button>
+              <span class="text-muted pading-5">{{order.quantity}}</span>
+              <button class="margin-down" mat-raised-button (click)="decreaseQuantity(i)" [disabled]="order.quantity <= 1"><mat-icon>exposure_neg_1</mat-icon></button>
+             
+              
+                <button type="button" (click)="remove(i)" color="accent" mat-raised-button><mat-icon>remove_shopping_cart</mat-icon>cancel</button>
+              
+         
+        </div>
+      </div>
+    </div>
+  </div>

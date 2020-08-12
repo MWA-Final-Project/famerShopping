@@ -8,23 +8,24 @@ import { FarmersService } from './../services/farmers.service'
 })
 export class FarmerOrderssComponent implements OnInit {
   orders;
-  selected = "option2"
+  complete = "complete"
   constructor(private Farmers: FarmersService) { 
     this.Farmers.getOrders();
   }
   ngOnInit(){
-    
       this.Farmers.subject.subscribe(orders => {
-        if (!this.orders) {
-          this.orders = orders;
-          console.log(this.Farmers.getOrders());
-        }
+          this.orders = orders;      
       });
   }
   deleteOrder(index){
-    console.log(this.orders[index]._id)
     const id = this.orders[index]._id
     this.Farmers.removeProduct(id);
   }
-  
+  changeStatus(event,index){
+    const statusBody ={
+      "status": event.value
+    }
+    const id = this.orders[index]._id;
+    this.Farmers.changeState(id,statusBody);
+  }
 }

@@ -1,9 +1,17 @@
-<div >
-    <a mat-button [routerLink]="['signin']">Sign In</a>
-    <a mat-button [routerLink]="['signup']">Sign up</a>
+
+<div class="landing-page text-center">
+    
+  <div class="pos-relative">
+    <mat-radio-group (change)="radioChange($event)" aria-label="Select an option">
+      <mat-radio-button [checked]="true" value="1">I'm A Farmer</mat-radio-button>
+      <mat-radio-button value="2">I'm A Custmer</mat-radio-button>
+    </mat-radio-group>
+    
+    <router-outlet></router-outlet>
+    <div class="pos-absolout">
+        <button mat-button color="accent"(click)="signInBut()" *ngIf="signedInButton" [routerLink]="['signin']">back to login ..</button>
+        <button mat-raised-button color="accent" (click)="signUpBut()" *ngIf="!signedInButton" [routerLink]="['signup']">Register</button>
+      </div>
+
+  </div>
 </div>
-<mat-radio-group (change)="radioChange($event)"  aria-label="Select an option">
-    <mat-radio-button [checked]="true" value="1">I'm A Farmer</mat-radio-button>
-    <mat-radio-button  value="2">I'm A Custmer</mat-radio-button>
-</mat-radio-group>
-<router-outlet></router-outlet>

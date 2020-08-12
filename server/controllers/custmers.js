@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 
 const config = require('./../config/config.json');
 const Custmer = require("../model/custmers");
+const Farmer = require("../model/farmers");
 
 var BCRYPT_SALT_ROUNDS = 12;
 
@@ -24,8 +25,6 @@ module.exports.signin = async(req, res) => {
         })
         .then(result => {
             if (!result) {
-                console.log({ message: "Unsuccessful log in attempt" });
-
                 return res.status(401).json({ message: "Unsuccessful login attempt" });
             }
 
@@ -35,11 +34,10 @@ module.exports.signin = async(req, res) => {
 
             res.status(200).json({ token: token, role: "custmer", id: custmerAccount._id, email: custmerAccount.email, fullName: custmerAccount.fullName, firstName: custmerAccount.fullName.firstName, lastName: custmerAccount.fullName.lastName });
         })
-        .catch(err => res.json({ message: err }));
+        .catch(err => res.status(400).json({ message: err }));
 }
 
 module.exports.signup = async(req, res) => {
-    console.log(req.body)
     const email = req.body.email;
     const password = req.body.password;
     const fullName = {
@@ -71,29 +69,27 @@ module.exports.signup = async(req, res) => {
             custmer
                 .save()
                 .then(_ => {
-                    console.log(newCustmer);
-                    res.json({ message: "the custmer successfully created." });
+                    res.status(200).json({ message: "the custmer successfully created." });
                 })
                 .catch(err => {
-                    console.log({ message: err });
-                    res.json({ message: err });
+                    res.status(400).json({ message: err });
                 });
         })
-        .catch(err => res.json({ message: err }));
+        .catch(err => res.status(400).json({ message: err }));
 }
 
 module.exports.getAllCustomers = async(req, res) => {
     await Custmer.find({}, { password: 0 })
-        .then(customers => res.json(customers))
-        .catch(err => res.json(err))
+        .then(customers => res.status(200).json(customers))
+        .catch(err => res.status(400).json(err))
 }
 
 module.exports.getAllOrders = async(req, res) => {
     const customerId = req.params.custId;
 
     await Custmer.findOne({ _id: customerId }, { _id: 0, fullName: 1, orders: 1 })
-        .then(orders => res.json(orders))
-        .catch(err => req.json(err))
+        .then(orders => res.status(200).json(orders))
+        .catch(err => req.status(400).json(err))
 }
 
 module.exports.addOrder = async(req, res) => {
@@ -105,35 +101,73 @@ module.exports.addOrder = async(req, res) => {
             customer.orders.push(order);
 
             customer.save().then(_ => {
-                    res.json({ message: 'Order successfully added.' }); // farmer
+                    res.status(200).json({ message: 'Order successfully added.' }); // farmer
                 })
-                .catch(err => res.json(err))
+                .catch(err => res.status(400).json(err))
         })
-        .catch(err => res.json(err))
+        .catch(err => res.status(400).json(err))
 }
 
 module.exports.getCustomerCart = async(req, res) => {
     const customerId = req.params.custId;
 
-    await Custmer.findOne({ _id: customerId }, { _id: 0, fullName: 1, cart: 1 })
-        .then(orders => res.json(orders))
-        .catch(err => req.json(err))
+    await Custmer.findOne({ _id: customerId }, { _id: 0, cart: 1 })
+        .then(orders => res.status(200).json(orders))
+        .catch(err => req.status(400).json(err))
 }
 
 module.exports.addToCart = async(req, res) => {
     const customerId = req.params.custId;
-    const order = req.body;
+    const productId = req.params.productId;
+    const quantity = 1; // req.params.quantity
 
-    await Custmer.findOne({ _id: customerId })
-        .then(customer => {
-            customer.cart.push(order);
+    await Farmer.findOne({ "products._id": productId})
+                .then(farmer => {
 
-            customer.save().then(_ => {
-                    res.json({ message: 'Order added to cart successfully.' });
+                  const farmerId = farmer._id;
+
+                  Custmer.findOne({ _id: customerId })
+                    .then(customer => {
+                      const cart = customer.cart;
+                      let exists = false;
+
+                      const price = farmer.products.filter(prod => prod._id == productId).map(prod => prod.price)[0];
+
+                      for(let i = 0; i < cart.length; i++){
+                        if(cart[i].productId == productId){
+                          exists = true;
+                          cart[i].quantity += quantity;
+                          cart[i].totalPrice += price;
+                        }
+                      }
+
+                      if(!exists){
+                        
+                        const order = {
+                          "oderdingDate": Date(Date.now()),
+                          "deliveryDate": Date().toString(),
+                          "farmerId": farmerId,
+                          "productId": productId,
+                          "status": "Pending",
+                          "price": price,
+                          "quantity": quantity,
+                          "totalPrice": price * quantity,
+                          "paidStatus": "Pending",
+                          "ratedStatus": false
+                        }
+
+                        cart.push(order);
+                      }
+                        
+
+                      customer.save().then(_ => {
+                              res.status(200).json({ message: 'Order added to cart successfully.' });
+                          })
+                          .catch(err => res.status(400).json(err))
+                    })
+                    .catch(err => res.status(400).json(err))
                 })
-                .catch(err => res.json(err))
-        })
-        .catch(err => res.json(err))
+                .catch(err => resp.status(200).json(err))    
 }
 
 module.exports.removeFromCart = async(req, res) => {
@@ -141,23 +175,52 @@ module.exports.removeFromCart = async(req, res) => {
     const orderId = req.params.orderId;
 
     await Custmer.updateOne({ _id: customerId }, { $pull: { cart: { _id: orderId } } })
-        .then(_ => res.json({ message: "Order removed successfully." }))
-        .catch(err => res.json(err))
+        .then(_ => res.status(200).json({ message: "Order removed successfully." }))
+        .catch(err => res.status(400).json(err))
 }
 
 module.exports.checkout = async(req, res) => {
     const customerId = req.params.custId;
+    let cart;
+
     await Custmer.findOne({ _id: customerId })
         .then(customer => {
-            const cart = customer.cart;
-            cart.forEach(order => customer.orders.push(order));
-            customer.cart = [];
+            cart = customer.cart;
 
-            customer.save()
-                .then(_ => res.json({ message: "Order successfully placed." }))
-                .catch(err => res.json(err))
+            let gotFarmer = false;
+            let farmerId;
+            
+            cart.forEach(order => {
+
+              if(!this.gotFarmer){                
+                this.farmerId = order.farmerId;
+                this.gotFarmer = true;
+              }
+
+              customer.orders.push(order)
+            });
+            
+            Farmer.findOne({ _id: this.farmerId })
+                  .then(farmer => {
+                    cart.forEach(order => {
+                      farmer.orders.push(order)
+                    });
+
+                    farmer.save()
+                          .then(_ => {
+                            customer.cart = [];
+
+                            customer.save()
+                                .then(_ => {
+                                  res.status(200).json({ message: "Order successfully placed." })
+                                })
+                                .catch(err => res.status(400).json(err))
+                          })
+                          .catch(err => res.status(400).json(err))
+                  })
+                  .catch(err => res.status(400).json(err))
         })
-        .catch(err => req.json(err))
+        .catch(err => res.status(400).json(err))
 }
 
 module.exports.cancelOrder = async(req, res) => {
@@ -165,6 +228,54 @@ module.exports.cancelOrder = async(req, res) => {
     const orderId = req.params.orderId;
 
     await Custmer.updateOne({ _id: customerId }, { $pull: { orders: { _id: orderId } } })
-        .then(_ => res.json({ message: "Order removed successfully." }))
-        .catch(err => res.json(err))
+        .then(_ => res.status(200).json({ message: "Order removed successfully." }))
+        .catch(err => res.status(400).json(err))
+}
+
+module.exports.rateFarmer = async(req, res) => {
+  const customerId = req.params.custId;
+  const orderId = req.params.orderId;
+  const rating = parseInt(req.params.rating);
+
+  await Custmer.findOne({ _id: customerId})
+                .then(customer => {
+                  const orders = customer.orders;
+
+                  for(let i = 0; i < orders.length; i++){
+                    if(orders[i]._id == orderId){
+                      const farmerId = orders[i].farmerId;
+
+                      Farmer.updateOne({ _id: farmerId }, { $inc: { rate: rating } })
+                            .then(_ => {
+                              orders[i].ratedStatus = true;
+
+                              customer.save()
+                                  .then(_ => res.status(200).json({ message: "Farmer rated successfully." }))
+                                  .catch(err => res.status(400).json(err))
+                            })
+                            .catch(err => res.status(400).json(err));                        
+                    }
+                  }
+                })
+                .catch(err => res.status(400).json(err));
+}
+
+module.exports.incCartOrderQuantity = async(req, res) => {
+    const customerId = req.params.custId;
+    const orderId = req.params.orderId;
+    const price = parseFloat(req.body.price);
+
+    await Custmer.updateOne({ _id: customerId, "cart._id": orderId }, { $inc: { "cart.$.quantity": 1, "cart.$.totalPrice": price }})
+        .then(_ => res.status(200).json({ message: "Quantity updated successfully." }))
+        .catch(err => res.status(400).json(err))
+}
+
+module.exports.decCartOrderQuantity = async(req, res) => {
+    const customerId = req.params.custId;
+    const orderId = req.params.orderId;
+    const price = parseFloat(req.body.price);
+
+    await Custmer.updateOne({ _id: customerId, "cart._id": orderId }, { $inc: { "cart.$.quantity": -1, "cart.$.totalPrice": -price } })
+        .then(_ => res.status(200).json({ message: "Quantity updated successfully." }))
+        .catch(err => res.status(400).json(err))
 }

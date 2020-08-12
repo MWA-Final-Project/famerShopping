@@ -1,0 +1,18 @@
+.landing-page{
+    display: flex;
+  height: 300px;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.pos-absolout{
+  position: absolute;
+  bottom: 20px;
+  right: 15px;
+}
+.pos-relative{
+  position: relative;
+}
+mat-radio-button {
+  margin-right: 10px;
+}
