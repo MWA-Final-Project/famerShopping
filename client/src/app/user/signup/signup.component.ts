@@ -11,7 +11,7 @@ import { RadioChangeService } from './../../services/radio-change.service'
 export class SignupComponent implements OnInit {
   @ViewChild('avatarFile') avatarFile;
   signupForm: FormGroup;
-  error: string = null;
+  error = null;
   isLoading: boolean = false;
   baseUrl: string = "http://localhost:3000/farmers";
 
@@ -75,17 +75,19 @@ export class SignupComponent implements OnInit {
     
 
     this.isLoading = true;
-    const response = this.authService.signUp(account, this.baseUrl);
-
-    if (response=="MongoError") {
-      this.error = response;
+    this.authService.signUp(account, this.baseUrl).then(response=>{
+      if (response=="MongoError") {
+        
+        
+      } else {
+        this.isLoading = false;
+      }
+    }).catch(err=>{
+      this.error = err;
       this.isLoading = false;
-      
-    } else {
-      this.isLoading = false;
-    }
+    });
 
-    console.log(this.signupForm.value)
+
   }
 
 }
