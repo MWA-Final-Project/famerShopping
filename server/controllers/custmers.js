@@ -195,6 +195,9 @@ module.exports.checkout = async(req, res) => {
 
             let gotFarmer = false;
             let farmerId;
+            let productId;
+            let quantity;
+            let products;
             
             cart.forEach(order => {
 
@@ -208,7 +211,18 @@ module.exports.checkout = async(req, res) => {
             
             Farmer.findOne({ _id: this.farmerId })
                   .then(farmer => {
+                    this.products = farmer.products;
+                    
                     cart.forEach(order => {
+                      this.productId = order.productId;
+                      this.quantity = order.quantity;
+
+                      for(let i = 0; i < this.products.length; i++){
+                        if(this.products[i]._id == this.productId){
+                          this.products[i].quantity -= this.quantity;
+                        }
+                      }
+                      
                       farmer.orders.push(order)
                     });
 
