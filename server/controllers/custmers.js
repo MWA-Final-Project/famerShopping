@@ -111,7 +111,7 @@ module.exports.addOrder = async(req, res) => {
 module.exports.getCustomerCart = async(req, res) => {
     const customerId = req.params.custId;
 
-    await Custmer.findOne({ _id: customerId }, { _id: 0, fullName: 1, cart: 1 })
+    await Custmer.findOne({ _id: customerId }, { _id: 0, cart: 1 })
         .then(orders => res.status(200).json(orders))
         .catch(err => req.status(400).json(err))
 }
@@ -181,31 +181,46 @@ module.exports.removeFromCart = async(req, res) => {
 
 module.exports.checkout = async(req, res) => {
     const customerId = req.params.custId;
+    let cart;
 
     await Custmer.findOne({ _id: customerId })
         .then(customer => {
-            const cart = customer.cart;
+            cart = customer.cart;
 
-            cart.forEach(order => customer.orders.push(order));
+            let gotFarmer = false;
+            let farmerId;
+            
+            cart.forEach(order => {
 
-            // const farmerId;
-            // Farmer.updateOne({ _id: farmerId }, { $inc: { rate: rating } })
-            //                 .then(_ => {
-            //                   orders[i].ratedStatus = true;
+              if(!this.gotFarmer){                
+                this.farmerId = order.farmerId;
+                this.gotFarmer = true;
+              }
 
-            //                   customer.save()
-            //                       .then(_ => res.status(200).json({ message: "Farmer rated successfully." }))
-            //                       .catch(err => res.status(400).json(err))
-            //                 })
-            //                 .catch(err => res.status(400).json(err));
+              customer.orders.push(order)
+            });
+            
+            Farmer.findOne({ _id: this.farmerId })
+                  .then(farmer => {
+                    cart.forEach(order => {
+                      farmer.orders.push(order)
+                    });
 
-            customer.cart = [];
+                    farmer.save()
+                          .then(_ => {
+                            customer.cart = [];
 
-            customer.save()
-                .then(_ => res.status(200).json({ message: "Order successfully placed." }))
-                .catch(err => res.status(400).json(err))
+                            customer.save()
+                                .then(_ => {
+                                  res.status(200).json({ message: "Order successfully placed." })
+                                })
+                                .catch(err => res.status(400).json(err))
+                          })
+                          .catch(err => res.status(400).json(err))
+                  })
+                  .catch(err => res.status(400).json(err))
         })
-        .catch(err => req.status(400).json(err))
+        .catch(err => res.status(400).json(err))
 }
 
 module.exports.cancelOrder = async(req, res) => {
