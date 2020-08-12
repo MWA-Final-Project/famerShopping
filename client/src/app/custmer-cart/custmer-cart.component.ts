@@ -26,19 +26,15 @@ export class CustmerCartComponent implements OnInit {
     this.Customers.removeFromCart(id);
   }
   increaseQuantity(index){
-    const id = this.cart[index]._id
-    this.Customers.increaseProductQuantity(id);
+    const id = this.cart[index]._id;
+    const price = {"price":this.cart[index].price};
+    this.Customers.increaseOrdersQuantity(id, price);
+    
   }
   decreaseQuantity(index){
-    const id = this.cart[index]._id
-    this.Customers.decreseProductQuantity(id);
-  }
-  changeStatus(event,index){
-    const statusBody ={
-      "status": event.value
-    }
     const id = this.cart[index]._id;
-    this.Customers.changeState(id,statusBody);
+    const price = {"price":this.cart[index].price};
+    this.Customers.decreseOrdersQuantity(id, price);
   }
 
 }

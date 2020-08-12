@@ -1,3 +1,8 @@
 mat-form-field{
     width: 100%;
 }
+.align-verticaly{
+    display: flex;
+      justify-content: center;
+      align-items: center;
+  }

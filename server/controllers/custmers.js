@@ -1,9 +1,11 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const Formidable = require('formidable');
 
 const config = require('./../config/config.json');
 const Custmer = require("../model/custmers");
 const Farmer = require("../model/farmers");
+const { findOneAndRemove } = require("../model/custmers");
 
 var BCRYPT_SALT_ROUNDS = 12;
 
@@ -36,6 +38,10 @@ module.exports.signin = async(req, res) => {
         })
         .catch(err => res.status(400).json({ message: err }));
 }
+/////////
+
+
+
 
 module.exports.signup = async(req, res) => {
     const email = req.body.email;
@@ -111,7 +117,7 @@ module.exports.addOrder = async(req, res) => {
 module.exports.getCustomerCart = async(req, res) => {
     const customerId = req.params.custId;
 
-    await Custmer.findOne({ _id: customerId }, { _id: 0, fullName: 1, cart: 1 })
+    await Custmer.findOne({ _id: customerId }, { _id: 0, cart: 1 })
         .then(orders => res.status(200).json(orders))
         .catch(err => req.status(400).json(err))
 }
@@ -131,16 +137,18 @@ module.exports.addToCart = async(req, res) => {
                       const cart = customer.cart;
                       let exists = false;
 
+                      const price = farmer.products.filter(prod => prod._id == productId).map(prod => prod.price)[0];
+
                       for(let i = 0; i < cart.length; i++){
                         if(cart[i].productId == productId){
                           exists = true;
                           cart[i].quantity += quantity;
+                          cart[i].totalPrice += price;
                         }
                       }
 
                       if(!exists){
-                        const price = farmer.products.filter(prod => prod._id == productId).map(prod => prod.price)[0];
-
+                        
                         const order = {
                           "oderdingDate": Date(Date.now()),
                           "deliveryDate": Date().toString(),
@@ -179,17 +187,60 @@ module.exports.removeFromCart = async(req, res) => {
 
 module.exports.checkout = async(req, res) => {
     const customerId = req.params.custId;
+    let cart;
+
     await Custmer.findOne({ _id: customerId })
         .then(customer => {
-            const cart = customer.cart;
-            cart.forEach(order => customer.orders.push(order));
-            customer.cart = [];
+            cart = customer.cart;
 
-            customer.save()
-                .then(_ => res.status(200).json({ message: "Order successfully placed." }))
-                .catch(err => res.status(400).json(err))
+            let gotFarmer = false;
+            let farmerId;
+            let productId;
+            let quantity;
+            let products;
+            
+            cart.forEach(order => {
+
+              if(!this.gotFarmer){                
+                this.farmerId = order.farmerId;
+                this.gotFarmer = true;
+              }
+
+              customer.orders.push(order)
+            });
+            
+            Farmer.findOne({ _id: this.farmerId })
+                  .then(farmer => {
+                    this.products = farmer.products;
+                    
+                    cart.forEach(order => {
+                      this.productId = order.productId;
+                      this.quantity = order.quantity;
+
+                      for(let i = 0; i < this.products.length; i++){
+                        if(this.products[i]._id == this.productId){
+                          this.products[i].quantity -= this.quantity;
+                        }
+                      }
+                      
+                      farmer.orders.push(order)
+                    });
+
+                    farmer.save()
+                          .then(_ => {
+                            customer.cart = [];
+
+                            customer.save()
+                                .then(_ => {
+                                  res.status(200).json({ message: "Order successfully placed." })
+                                })
+                                .catch(err => res.status(400).json(err))
+                          })
+                          .catch(err => res.status(400).json(err))
+                  })
+                  .catch(err => res.status(400).json(err))
         })
-        .catch(err => req.status(400).json(err))
+        .catch(err => res.status(400).json(err))
 }
 
 module.exports.cancelOrder = async(req, res) => {
@@ -232,8 +283,9 @@ module.exports.rateFarmer = async(req, res) => {
 module.exports.incCartOrderQuantity = async(req, res) => {
     const customerId = req.params.custId;
     const orderId = req.params.orderId;
+    const price = parseFloat(req.body.price);
 
-    await Custmer.updateOne({ _id: customerId, "cart._id": orderId }, { $inc: { "cart.$.quantity": 1 } })
+    await Custmer.updateOne({ _id: customerId, "cart._id": orderId }, { $inc: { "cart.$.quantity": 1, "cart.$.totalPrice": price }})
         .then(_ => res.status(200).json({ message: "Quantity updated successfully." }))
         .catch(err => res.status(400).json(err))
 }
@@ -241,8 +293,9 @@ module.exports.incCartOrderQuantity = async(req, res) => {
 module.exports.decCartOrderQuantity = async(req, res) => {
     const customerId = req.params.custId;
     const orderId = req.params.orderId;
+    const price = parseFloat(req.body.price);
 
-    await Custmer.updateOne({ _id: customerId, "cart._id": orderId }, { $inc: { "cart.$.quantity": -1 } })
+    await Custmer.updateOne({ _id: customerId, "cart._id": orderId }, { $inc: { "cart.$.quantity": -1, "cart.$.totalPrice": -price } })
         .then(_ => res.status(200).json({ message: "Quantity updated successfully." }))
         .catch(err => res.status(400).json(err))
 }

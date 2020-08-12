@@ -25,9 +25,12 @@ export class AuthService {
   clearStorage(){
     localStorage.clear();
   }
-
+ 
+  
+ 
   signIn(account,baseUrl) {
-    this.http
+    return new Promise ((resolve, reject)=>{
+      this.http
       .post<{ token: string, 
               role: string,
               email:string
@@ -43,28 +46,31 @@ export class AuthService {
         localStorage.setItem('email',response.email);
         localStorage.setItem('role',response.role);
         
-        
-        this.responseMessage = response;
         if(response.role == "farmer"){
           this.router.navigate(["home","farmer"])
         }else{
           this.router.navigate(["home","custmer"])
         }
+        resolve(response);
       }, err => {
-        this.errorMessage = err.error.message;
-        return err.error.message
+        reject(err.error.message);
+        
       });
+    })
 
-    return this.responseMessage;
+    
   }
   signUp(account, baseUrl) {
-    this.http.post(baseUrl + "/signup", account).subscribe(response => {
-      this.responseMessage = response;
-      this.router.navigate(["/signin"])
-    }, err => {
-      this.errorMessage = err.error.message
-    });
-    return this.responseMessage;
+
+    return new Promise ((resolve, reject)=>{
+      this.http.post(baseUrl + "/signup", account).subscribe(response => {
+        this.router.navigate(["/signin"])
+        resolve(response);
+      }, err => {
+        
+        reject( err.error.message.name)
+      });
+    })
   }
   getErrorMessage() {
     return this.errorMessage;

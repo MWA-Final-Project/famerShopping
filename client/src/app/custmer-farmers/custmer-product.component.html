@@ -1,10 +1,14 @@
-<div class="album py-5 bg-light">
-    <div class="container" *ngFor="let farmer of  farmers; let i = index;" >
-      <a (click)="getProducts(i)" [routerLink]="['','home','custmer','farmer-prducts']" *ngIf="!custmerStatus" class="btn btn-success my-2" >Products</a>
+<div class="album py-5 bg-light flex-width ">
+    <div class="box-shadow card-width" *ngFor="let farmer of  farmers; let i = index;" >
+      <div class="card mb-4">
+        <div class="card-body">
+      <button (click)="getProducts(i)" [routerLink]="['','home','custmer','farmer-prducts']" *ngIf="!custmerStatus" mat-raised-button color="primary" class="margin-down"><mat-icon>developer_board</mat-icon>Products</button>
       <p>{{farmer.fullName.firstName}} {{farmer.fullName.lastName}}</p>
       <p>email: {{farmer.email}}</p>
       <p>phone: {{farmer.phone}}</p>
       <p>rate: {{farmer.rate}}</p>
       <br>
     </div>
+  </div>
+  </div>
 </div>

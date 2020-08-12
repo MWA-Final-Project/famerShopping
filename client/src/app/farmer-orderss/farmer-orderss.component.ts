@@ -8,7 +8,7 @@ import { FarmersService } from './../services/farmers.service'
 })
 export class FarmerOrderssComponent implements OnInit {
   orders;
-  complete = "complete"
+  complete = "Complete"
   constructor(private Farmers: FarmersService) { 
     this.Farmers.getOrders();
   }

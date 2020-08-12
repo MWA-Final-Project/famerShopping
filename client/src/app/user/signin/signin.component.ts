@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, Validators, FormBuilder } from "@angular/forms";
-import { AuthService } from "../auth.service";
+import { AuthService } from "../../services/auth.service";
 import { RadioChangeService } from './../../services/radio-change.service'
 
 @Component({
@@ -11,7 +11,7 @@ import { RadioChangeService } from './../../services/radio-change.service'
 export class SigninComponent implements OnInit {
   signinForm: FormGroup;
   isLoading: boolean = false;
-  error: string = null;
+  error;
   private token;
   baseUrl: string = "http://localhost:3000/farmers";
 
@@ -49,15 +49,14 @@ export class SigninComponent implements OnInit {
     };
    
     this.isLoading = true;
-
-    const response = this.authService.signIn(account, this.baseUrl);
     
-    this.error = this.authService.getErrorMessage();
-    if (response) {
+    this.authService.signIn(account, this.baseUrl).then(response=>{
       this.isLoading = false;
-    } else {
-      this.error = response;
+    }).catch(err=>{
+      this.error = err;
       this.isLoading = false;
-    }
+    });
+    
+    
   }
 }

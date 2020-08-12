@@ -1,0 +1,29 @@
+mat-form-field{
+    margin: 20px;
+}
+.box{
+    
+    width: 170px;
+    padding: 20px;
+    box-shadow: 2px 2px 2px grey;
+    
+}
+
+.box-shadow{
+    box-shadow: 5px 5px 5px grey;
+    margin: 15px;
+}
+.flex-width{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+}
+.pic-width{
+    width: 200px;
+    height: 200px;
+    margin: auto;
+}
+.pic-container{
+    text-align: center;
+    
+}
