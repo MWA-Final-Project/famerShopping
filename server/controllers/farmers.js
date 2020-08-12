@@ -1,9 +1,11 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
+const fs = require('fs');
 const jwt = require("jsonwebtoken");
 
 const config = require('./../config/config.json');
 const Farmer = require("../model/farmers");
+const Formidable = require('formidable');
 
 var BCRYPT_SALT_ROUNDS = 12;
 
@@ -130,20 +132,41 @@ module.exports.getAllProducts = async(req, res) => {
 
 module.exports.addProduct = async (req, res) => {
   const farmerId = req.params.farmerId;
-  const product = req.body;
+ // const product ;
+  
+  const form = new Formidable.IncomingForm();
 
-  await Farmer.findOne({ _id: farmerId })
-              .then(farmer => {
-                farmer.products.push(product)
-           
-                farmer.save()
-                      .then(_ => {
-                        res.status(200).json({message: 'Product successfully added.'})  // farmer
-                      })
-                      .catch(err =>{
-                        res.status(400).json(err)})
-              })
-              .catch(err => res.status(400).json(err))
+ 
+  form.parse(req, async (err, fields, files) => {
+
+
+    const  product = {
+      name: fields.name,
+      description: fields.description,
+      price: fields.price,
+      pic: fs.readFileSync(files.pic.path).toString('base64'), 
+      catagory: fields.category,
+      quantity: fields.quantity,
+      pushing_date: fields.pushing_date
+    }
+
+    
+
+    await Farmer.findOne({ _id: farmerId })
+    .then(farmer => {
+      farmer.products.push(product)
+ 
+      farmer.save()
+            .then(_ => {
+              res.status(200).json({message: 'Product successfully added.'})  // farmer
+            })
+            .catch(err =>{
+              console.log(err)
+              res.status(400).json(err)})
+    })
+    .catch(err => res.json(err))
+
+  });
 }
 
 module.exports.removeProduct = async(req, res) => {

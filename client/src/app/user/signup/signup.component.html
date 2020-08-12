@@ -101,10 +101,13 @@
             Phone is <strong>required</strong>
           </mat-error>
       </mat-form-field>
+      <div formGroupName="files">
+        <input type="file" name="avatar"
+        [formControl]="signupForm.get('avatar')" #avatarFile />
 
       
       <br>
-
+      </div>
       <button mat-raised-button color="primary" type="submit" [disabled]="!signupForm.valid">Sign Up</button>
     </mat-card>
   </div>

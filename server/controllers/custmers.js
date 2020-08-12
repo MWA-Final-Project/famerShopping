@@ -1,9 +1,11 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const Formidable = require('formidable');
 
 const config = require('./../config/config.json');
 const Custmer = require("../model/custmers");
 const Farmer = require("../model/farmers");
+const { findOneAndRemove } = require("../model/custmers");
 
 var BCRYPT_SALT_ROUNDS = 12;
 
@@ -36,6 +38,10 @@ module.exports.signin = async(req, res) => {
         })
         .catch(err => res.status(400).json({ message: err }));
 }
+/////////
+
+
+
 
 module.exports.signup = async(req, res) => {
     const email = req.body.email;

@@ -6,18 +6,27 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var fs= require('fs');
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const accountRouter = require("./routes/account");
 const custmersRouter = require("./routes/custmers");
 const farmersRouter = require("./routes/farmers");
+const SwaggerDocs = require("./SwaggerDocs.js");
+
+
 
 var app = express();
 
 require("./db/db");
-// const accountRouter = require("./routes/account");
-// const farmersRouter = require("./routes/farmersRouter");
+ //const accountRouter = require("./routes/account");
+ //const farmersRouter = require("./routes/farmersRouter");
+
+
+
+
 
 app.use(cors());
 
