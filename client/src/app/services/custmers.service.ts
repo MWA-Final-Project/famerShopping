@@ -130,9 +130,9 @@ export class CustmersService {
       return "canceled your order";
   }
 
-  increaseOrdersQuantity(id) {
+  increaseOrdersQuantity(id, price) {
     const link =this.baseCustmersURL+localStorage.getItem('id')+"/cart/orders/"+id+"/inc";
-    this.http.patch(link,{})
+    this.http.patch(link,price)
       .subscribe(res => {
         this.getCart();
         return res;
@@ -140,9 +140,9 @@ export class CustmersService {
         console.log(err)
       });
   }
-  decreseOrdersQuantity(id) {
+  decreseOrdersQuantity(id, price) {
     const link =this.baseCustmersURL+localStorage.getItem('id')+"/cart/orders/"+id+"/dec";
-    this.http.patch(link,{})
+    this.http.patch(link,price)
       .subscribe(res => {
         this.getCart();
         return res;

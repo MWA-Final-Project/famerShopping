@@ -32,7 +32,7 @@
         <span class="navbar-toggler-icon"> </span>
       </button>
       <div class="nav justify-content-end">
-        <button mat-raised-button  (click)="logout()" type="button">SignOut<mat-icon>exit_to_app</mat-icon></button>
+        <button mat-raised-button  (click)="logout()" type="button" class="signout-but">SignOut<mat-icon>exit_to_app</mat-icon></button>
       </div>
     </div>
   </div>
@@ -43,7 +43,7 @@
       <button mat-raised-button [routerLink]="['farmer','products']" *ngIf="!custmerStatus" color="primary" type="button"><mat-icon>developer_board</mat-icon>Products</button>
       <button mat-raised-button [routerLink]="['custmer','farmers']" *ngIf="custmerStatus"  color="primary"  type="button"><mat-icon>home_work</mat-icon>Farmers</button>
       <button mat-raised-button [routerLink]="[logedInUser,'orders']" color="primary"  type="button"><mat-icon>receipt</mat-icon>My Orders</button>
-      <button mat-raised-button [routerLink]="['custmer','cart']" *ngIf="custmerStatus"  color="primary" type="button"><mat-icon>add_shopping_cart</mat-icon>My CART</button>
+      <button mat-raised-button [routerLink]="['custmer','cart']" *ngIf="custmerStatus"  color="primary" type="button"><mat-icon>shopping_cart</mat-icon>My CART</button>
       <!-- <p>
         <a [routerLink]="['farmer','products']" *ngIf="!custmerStatus" class="btn btn-success my-2">Products</a>
         <a [routerLink]="['custmer','farmers']" *ngIf="custmerStatus" class="btn btn-success my-2">Farmers</a>

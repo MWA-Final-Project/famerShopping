@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from "./../user/auth.service"
+import { AuthService } from "../services/auth.service"
 import { Router } from '@angular/router';
 import { RadioChangeService } from '../services/radio-change.service';
 

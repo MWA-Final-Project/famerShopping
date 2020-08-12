@@ -1,0 +1,18 @@
+.margin-field{
+    margin: 15px;
+}
+.box-shadow{
+    box-shadow: 5px 5px 5px grey;
+    margin: 15px;
+}
+.flex-width{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+}
+.card-width{
+    width: 20%;
+}
+.margin-down{
+    margin-bottom: 10px;
+}

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { AuthService } from "../auth.service";
+import { AuthService } from "../../services/auth.service";
 import { RadioChangeService } from './../../services/radio-change.service'
 
 @Component({
@@ -59,12 +59,12 @@ export class SignupComponent implements OnInit {
 
     this.isLoading = true;
     const response = this.authService.signUp(account, this.baseUrl);
-   
 
-    if (response) {
-      this.isLoading = false;
-    } else {
+    if (response=="MongoError") {
       this.error = response;
+      this.isLoading = false;
+      
+    } else {
       this.isLoading = false;
     }
   }

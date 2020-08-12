@@ -9,7 +9,7 @@ import { UserModule } from "./user/user.module";
 import { MaterialModule } from "./material/material.module";
 //import { LoadingSpinnerComponent } from "./user/loading-spinner/loading-spinner.component.js";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
-import { AuthInterceptor } from "./user/auth-interceptor";
+import { AuthInterceptor } from "./interceptors/auth-interceptor";
 import { HomeComponent } from './home/home.component';
 
 import { AuthGuard } from './/guards/auth.guard';
