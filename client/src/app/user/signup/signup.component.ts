@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AuthService } from "../../services/auth.service";
 import { RadioChangeService } from './../../services/radio-change.service'
@@ -9,7 +9,6 @@ import { RadioChangeService } from './../../services/radio-change.service'
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-  @ViewChild('avatarFile') avatarFile;
   signupForm: FormGroup;
   error = null;
   isLoading: boolean = false;
@@ -37,10 +36,7 @@ export class SignupComponent implements OnInit {
       city: ["", Validators.required],
       state: ["", Validators.required],
       zipcode: ["", Validators.required],
-      phone: ["", Validators.required],
-      files: this.formBuilder.group({
-        avatar: [null],
-      })
+      phone: ["", Validators.required]
     });
   }
 
@@ -62,16 +58,6 @@ export class SignupComponent implements OnInit {
       phone: this.signupForm.value.phone
     };
     
-    const formData = new FormData();
-
-    Object.keys(this.signupForm.value).forEach(key => {
-      if (key != "files") {
-        formData.append(key, this.signupForm.value[key]);
-      }
-    });
-
-    console.log(this.avatarFile.nativeElement.files[0].name);
-    formData.append('avatar', this.avatarFile.nativeElement.files[0], this.avatarFile.nativeElement.files[0].name);
     
 
     this.isLoading = true;

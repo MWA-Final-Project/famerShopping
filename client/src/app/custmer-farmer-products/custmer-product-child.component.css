@@ -12,3 +12,17 @@
 .margin-down{
     margin-bottom: 10px;
 }
+.pic-width{
+    width: 200px;
+    height: 200px;
+    margin: auto;
+}
+.pic-container{
+    text-align: center;
+    
+}
+.card-holder{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}

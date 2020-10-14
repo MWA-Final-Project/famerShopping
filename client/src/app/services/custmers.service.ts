@@ -17,7 +17,7 @@ export class CustmersService {
   private allFarmers;
   private allProducts;
   private allOrders;
-  private cart;
+  
 
   baseCustmersURL = "http://localhost:3000/customers/";
   baseFarmersURL ="http://localhost:3000/farmers/";
@@ -76,12 +76,13 @@ export class CustmersService {
     const link =this.baseCustmersURL +localStorage.getItem('id')+"/cart"
     this.http.get<{cart:object}>(link)
       .subscribe(res => {
-        this.cart = res.cart;
-        this.cart$.next(this.cart);
+        this.cart$.next(res.cart);
+        return res.cart;
       }, err => {
         console.log(err)
+        return err;
       });
-      return this.cart;
+      
   }
   
   addToCart(id){

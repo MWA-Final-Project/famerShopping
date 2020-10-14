@@ -1,14 +1,14 @@
 
 <div class="landing-page text-center">
+  <div *ngIf="isLoading" style="text-align: center">
+    <app-loading-spinner></app-loading-spinner>
+  </div>
     
   <div class="pos-relative">
     <mat-radio-group (change)="radioChange($event)" aria-label="Select an option">
       <mat-radio-button [checked]="true" value="1">I'm A Farmer</mat-radio-button>
       <mat-radio-button value="2">I'm A Custmer</mat-radio-button>
     </mat-radio-group>
-    
     <router-outlet></router-outlet>
-   
-
   </div>
 </div>

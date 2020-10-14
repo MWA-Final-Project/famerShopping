@@ -21,12 +21,6 @@ const SwaggerDocs = require("./SwaggerDocs.js");
 var app = express();
 
 require("./db/db");
- //const accountRouter = require("./routes/account");
- //const farmersRouter = require("./routes/farmersRouter");
-
-
-
-
 
 app.use(cors());
 
